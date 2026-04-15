@@ -32,48 +32,32 @@ Drop into any project and start delegating across providers immediately.
 
 ## Install in any project
 
-### Option 0 — one-liner CLI (fastest)
+### Option A — GitHub marketplace (recommended)
+
+Two commands, any project, any machine:
 
 ```bash
-cd your-project
-npx github:ranjankumarpatel/claude-code-multi-model --cache --with-codex --env
+claude plugin marketplace add ranjankumarpatel/claude-code-multi-model
+claude plugin install multi-model@claude-code-multi-model
 ```
 
-Flags: `--cache` (reuse `~/.cache/claude-code-multi-model`), `--with-codex` (add codex-plugin-cc to marketplace), `--env` (write `MCP_GLOBAL_MODULES` to shell profile), `--global`, `--copy`, `--target <dir>`. `npx cmm-install -h` for full help.
-
-### Option A — marketplace (recommended)
-
-1. Clone this repo next to your project:
-   ```bash
-   git clone https://github.com/ranjankumarpatel/claude-code-multi-model.git
-   ```
-2. In your target project, create or edit `.claude-plugin/marketplace.json`:
-   ```json
-   {
-     "name": "my-project-marketplace",
-     "owner": { "name": "you" },
-     "plugins": [
-       {
-         "name": "multi-model",
-         "source": "../claude-code-multi-model/plugins/multi-model",
-         "version": "1.0.0"
-       }
-     ]
-   }
-   ```
-3. Launch Claude Code in the project → plugin auto-loads. Verify with `/multi-model:models`.
-
-### Option B — copy plugin into the project
+Restart Claude Code → plugin auto-loads with its 3 MCP servers. Verify:
 
 ```bash
-cp -r claude-code-multi-model/plugins/multi-model your-project/plugins/
+claude mcp list        # expect plugin:multi-model:{ollama,nvidia-nim,nvidia-security}
 ```
 
-Then point `.claude-plugin/marketplace.json` at `./plugins/multi-model`.
+Updates: `claude plugin update multi-model@claude-code-multi-model`.
 
-### Option C — global install
+### Option B — local clone (development)
 
-Drop the plugin dir into `~/.claude/plugins/multi-model/` — it loads for every project.
+For hacking on the plugin itself:
+
+```bash
+git clone https://github.com/ranjankumarpatel/claude-code-multi-model.git
+claude plugin marketplace add /absolute/path/to/claude-code-multi-model
+claude plugin install multi-model@claude-code-multi-model
+```
 
 ---
 
@@ -110,14 +94,9 @@ npm i -g @modelcontextprotocol/sdk zod
 Codex is optional but recommended — it's the verification gate + rescue executor in the auto-routing pattern.
 
 1. Install the [Codex CLI](https://github.com/openai/codex) and sign in so `codex` runs on your terminal.
-2. Add [openai/codex-plugin-cc](https://github.com/openai/codex-plugin-cc) to your marketplace alongside this plugin:
-   ```json
-   {
-     "plugins": [
-       { "name": "multi-model", "source": "../claude-code-multi-model/plugins/multi-model", "version": "1.0.0" },
-       { "name": "codex",       "source": "../codex-plugin-cc",                            "version": "latest" }
-     ]
-   }
+2. Install the Codex plugin (bundled in this marketplace):
+   ```bash
+   claude plugin install codex@claude-code-multi-model
    ```
 3. Verify with `/codex:review` or `/codex:rescue` inside Claude Code.
 
