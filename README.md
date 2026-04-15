@@ -32,6 +32,15 @@ Drop into any project and start delegating across providers immediately.
 
 ## Install in any project
 
+### Option 0 — one-liner CLI (fastest)
+
+```bash
+cd your-project
+npx github:ranjankumarpatel/claude-code-multi-model --cache --with-codex --env
+```
+
+Flags: `--cache` (reuse `~/.cache/claude-code-multi-model`), `--with-codex` (add codex-plugin-cc to marketplace), `--env` (write `MCP_GLOBAL_MODULES` to shell profile), `--global`, `--copy`, `--target <dir>`. `npx cmm-install -h` for full help.
+
 ### Option A — marketplace (recommended)
 
 1. Clone this repo next to your project:
