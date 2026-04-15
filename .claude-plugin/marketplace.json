@@ -1,6 +1,8 @@
 {
   "name": "claude-code-multi-model",
-  "owner": { "name": "ranjankumarpatel" },
+  "owner": {
+    "name": "ranjankumarpatel"
+  },
   "metadata": {
     "description": "Portable multi-model orchestration plugin for Claude Code (Ollama + NVIDIA + Codex).",
     "version": "1.1.0"
@@ -8,10 +10,13 @@
   "plugins": [
     {
       "name": "multi-model",
-      "description": "Delegate to Ollama cloud, NVIDIA NIM, NVIDIA Security, and Codex. Drop-in portable. Opus plans, executors run in parallel, Codex verifies.",
-      "version": "1.0.0",
-      "author": { "name": "ranjankumarpatel" },
-      "source": "./plugins/multi-model"
+      "source": "C:/Users/ranja/.cache/claude-code-multi-model/plugins/multi-model",
+      "version": "1.0.0"
+    },
+    {
+      "name": "codex",
+      "source": "https://github.com/openai/codex-plugin-cc",
+      "version": "latest"
     }
   ]
 }
