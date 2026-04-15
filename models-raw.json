@@ -1,0 +1,390 @@
+[
+  {
+    "href": "/explore/discover",
+    "text": "Explore\nModels\nBlueprints\nGPUs\nDocs\nCtrl+K\n?\nLogin\nModels\n\nDeploy and scale models on your GPU infrastructure of choice with NVIDIA NIM inference microservices\n\nOptimized by NVIDIA\nLaunch from Hugging Face\nBeta\nFilters (1)\nFree Endpoint\n96\nPartner Endpoint\n25\nDownload Available\n1\nUse Case\nCode Generation\n14\nImage-to-Text\n8\nSynthetic Data Generation\n6\nRetrieval Augmented Generation\n4\nText Translation\n3\nShow more\nInference Providers\nDeep Infra\n19\nTogether AI\n13\nGMI Cloud\n7\nBitdeer AI\n6\nCoreWeave\n2"
+  },
+  {
+    "href": "/nvidia/ising-calibration-1-35b-a3b",
+    "text": "NVIDIA\nFree Endpoint\nising-calibration-1-35b-a3b\nOpen VLM for quantum computer calibration chart understanding across a range of qubit modalities.\nquantum\n+3\nToday"
+  },
+  {
+    "href": "/minimaxai/minimax-m2.7",
+    "text": "Minimaxai\nFree Endpoint\nminimax-m2.7\nMiniMax M2.7 is a 230B-parameter text-to-text AI model excelling in coding, reasoning, and office tasks.\ncoding\n+2\n567K\n3d"
+  },
+  {
+    "href": "/nvidia/audio2face-3d-claire-notongue",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\naudio2face-3d-claire-notongue\nConverts streamed audio to facial blendshapes for realtime lipsyncing and facial performances.\ndigital humans\n+2\n40\n5d"
+  },
+  {
+    "href": "/nvidia/audio2face-3d-james-notongue",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\naudio2face-3d-james-notongue\nConverts streamed audio to facial blendshapes for realtime lipsyncing and facial performances.\ndigital humans\n+2\n5d"
+  },
+  {
+    "href": "/nvidia/audio2face-3d-james",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\naudio2face-3d-james\nConverts streamed audio to facial blendshapes for realtime lipsyncing and facial performances.\ndigital humans\n+2\n223\n5d"
+  },
+  {
+    "href": "/nvidia/nemotron-voicechat",
+    "text": "NVIDIA\nFree Endpoint\nnemotron-voicechat\nNemotron 3 Voicechat\nenglish\n+2\n6.7K\n4w"
+  },
+  {
+    "href": "/nvidia/gliner-pii",
+    "text": "NVIDIA\nFree Endpoint\ngliner-pii\nGLiNER PII detects Personally Identifiable Information in text.\npii detection\n+1\n57.11K\n1mo"
+  },
+  {
+    "href": "/nvidia/cosmos-transfer2_5-2b",
+    "text": "NVIDIA\nFree Endpoint\ncosmos-transfer2.5-2b\nGenerates physics-aware video world states for physical AI development using text prompts and multiple spatial control inputs derived from real-world data or simulation.\nsynthetic data generation\n+4\n1mo"
+  },
+  {
+    "href": "/stepfun-ai/step-3.5-flash",
+    "text": "Stepfun-ai\nFree Endpoint\nstep-3.5-flash\n200B open-source reasoning engine with sparse MoE powering frontier agentic AI.\nagentic\n+2\n9.4M\n2mo"
+  },
+  {
+    "href": "/z-ai/glm4_7",
+    "text": "Z.ai\nFree Endpoint\nglm-4.7\nGLM-4.7 is a multilingual agentic coding partner with stronger reasoning, tool use, and UI skills.\ntool calling\n+3\n16.27M\n2mo"
+  },
+  {
+    "href": "/nvidia/nemotron-content-safety-reasoning-4b",
+    "text": "NVIDIA\nFree Endpoint\nnemotron-content-safety-reasoning-4b\nA context‑aware safety model that applies reasoning to enforce domain‑specific policies.\nnemo guardrails\n+3\n207K\n2mo"
+  },
+  {
+    "href": "/deepseek-ai/deepseek-v3_2",
+    "text": "DeepSeek AI\nFree Endpoint\ndeepseek-v3.2\nState-of-the-art 685B reasoning LLM with sparse attention, long context, and integrated agentic tools.\nlong context\n+2\n14.89M\n3mo"
+  },
+  {
+    "href": "/nvidia/riva-translate-4b-instruct-v1_1",
+    "text": "NVIDIA\nFree Endpoint\nriva-translate-4b-instruct-v1_1\nTranslation model in 12 languages with few-shots example prompts capability.\nnvidia nim\n+2\n142K\n4mo"
+  },
+  {
+    "href": "/mistralai/devstral-2-123b-instruct-2512",
+    "text": "Mistral AI\nFree Endpoint\ndevstral-2-123b-instruct-2512\nState-of-the-art open code model with deep reasoning, 256k context, and unmatched efficiency.\ncoding\n+3\n3.62M\n4mo"
+  },
+  {
+    "href": "/moonshotai/kimi-k2-thinking",
+    "text": "Moonshotai\nFree Endpoint\nkimi-k2-thinking\nOpen reasoning model with 256K context window, native INT4 quantization and enhanced tool use.\nconversational\n+3\n4.09M\n4mo"
+  },
+  {
+    "href": "/mistralai/mistral-large-3-675b-instruct-2512",
+    "text": "Mistral AI\nFree Endpoint\nmistral-large-3-675b-instruct-2512\nA state-of-the-art general purpose MoE VLM ideal for chat, agentic and instruction based use cases.\nlanguage generation\n+3\n5.4M\n4mo"
+  },
+  {
+    "href": "/nvidia/streampetr",
+    "text": "NVIDIA\nFree Endpoint\nstreampetr\nStreamPETR offers efficient 3D object detection for autonomous driving by propagating sparse object queries temporally.\nautonomous vehicles\n+3\n24.23K\n5mo"
+  },
+  {
+    "href": "/nvidia/llama-3_1-nemotron-safety-guard-8b-v3",
+    "text": "NVIDIA\nFree Endpoint\nllama-3.1-nemotron-safety-guard-8b-v3\nLeading multilingual content safety model for enhancing the safety and moderation capabilities of LLMs\ncontent moderation\n+4\n106K\n5mo"
+  },
+  {
+    "href": "/deepseek-ai/deepseek-v3_1-terminus",
+    "text": "DeepSeek AI\nFree Endpoint\ndeepseek-v3.1-terminus\nDeepSeek-V3.1: hybrid inference LLM with Think/Non-Think modes, stronger agents, 128K context, strict function calling.\ntool calling\n+3\n12.29M\n6mo"
+  },
+  {
+    "href": "/moonshotai/kimi-k2-instruct-0905",
+    "text": "Moonshotai\nFree Endpoint\nkimi-k2-instruct-0905\nFollow-on version of Kimi-K2-Instruct with longer context window and enhanced reasoning capabilities.\nlong-context\n+3\n14.63M\n6mo"
+  },
+  {
+    "href": "/speakleash/bielik-11b-v2_6-instruct",
+    "text": "Speakleash\nDeprecated\nFree Endpoint\nbielik-11b-v2.6-instruct\nState-of-the-art model for Polish language processing tasks such as text generation, Q&A, and chatbots.\npolish\n+3\n155K\n6mo"
+  },
+  {
+    "href": "/bytedance/seed-oss-36b-instruct",
+    "text": "ByteDance\nFree Endpoint\nseed-oss-36b-instruct\nByteDance open-source LLM with long-context, reasoning, and agentic intelligence.\nthinking budget\n+2\n1.36M\n7mo"
+  },
+  {
+    "href": "/qwen/qwen3-coder-480b-a35b-instruct",
+    "text": "Qwen\nFree Endpoint\nqwen3-coder-480b-a35b-instruct\nExcels in agentic coding and browser use and supports 256K context, delivering top results.\nagentic coding\n+3\n3.45M\n7mo"
+  },
+  {
+    "href": "/deepseek-ai/deepseek-v3_1",
+    "text": "DeepSeek AI\nFree Endpoint\ndeepseek-v3.1\nDeepSeek V3.1 Instruct is a hybrid AI model with fast reasoning, 128K context, and strong tool use.\nreasoning\n+1\n10.99M\n7mo"
+  },
+  {
+    "href": "/nvidia/llama-3_2-nemoretriever-300m-embed-v1",
+    "text": "NVIDIA\nFree Endpoint\nllama-3_2-nemoretriever-300m-embed-v1\nMultilingual, cross-lingual embedding model for long-document QA retrieval, supporting 26 languages.\ntext-to-embedding\n+2\n272K\n8mo"
+  },
+  {
+    "href": "/microsoft/phi-4-mini-flash-reasoning",
+    "text": "Microsoft\nDeprecated\nFree Endpoint\nphi-4-mini-flash-reasoning\nLightweight reasoning model for applications in latency bound, memory/compute constrained environments\nedge\n+3\n162K\n9mo"
+  },
+  {
+    "href": "/moonshotai/kimi-k2-instruct",
+    "text": "Moonshotai\nFree Endpoint\nkimi-k2-instruct\nState-of-the-art open mixture-of-experts model with strong reasoning, coding, and agentic capabilities\ncoding\n+3\n21.04M\n9mo"
+  },
+  {
+    "href": "/mistralai/magistral-small-2506",
+    "text": "Mistral AI\nFree Endpoint\nmagistral-small-2506\nHigh performance reasoning model optimized for efficiency and edge deployment\ncoding\n+3\n1.18M\n9mo"
+  },
+  {
+    "href": "/nvidia/magpie-tts-flow",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\nmagpie-tts-flow\nExpressive and engaging text-to-speech, generated from a short audio sample.\ntts\n+3\n1.21K\n9mo"
+  },
+  {
+    "href": "/meta/llama-guard-4-12b",
+    "text": "Meta\nFree Endpoint\nllama-guard-4-12b\nMulti-modal model to classify safety for input prompts as well output responses.\nllm multimodal safety\n+3\n62.05K\n9mo"
+  },
+  {
+    "href": "/google/gemma-3n-e4b-it",
+    "text": "Google\nFree Endpoint\ngemma-3n-e4b-it\nAn edge computing AI model which accepts text, audio and image input, ideal for resource-constrained environments\nlanguage generation\n+3\n325K\n9mo"
+  },
+  {
+    "href": "/google/gemma-3n-e2b-it",
+    "text": "Google\nFree Endpoint\ngemma-3n-e2b-it\nAn edge computing AI model which accepts text, audio and image input, ideal for resource-constrained environments\nlanguage generation\n+3\n227K\n9mo"
+  },
+  {
+    "href": "/nvidia/cosmos-transfer1-7b",
+    "text": "NVIDIA\nFree Endpoint\ncosmos-transfer1-7b\nGenerates physics-aware video world states for physical AI development using text prompts and multiple spatial control inputs derived from real-world data or simulation.\nsynthetic data generation\n+4\n230\n9mo"
+  },
+  {
+    "href": "/mistralai/mistral-nemotron",
+    "text": "Mistral AI\nFree Endpoint\nmistral-nemotron\nBuilt for agentic workflows, this model excels in coding, instruction following, and function calling\nlanguage generation\n+2\n2.16M\n10mo"
+  },
+  {
+    "href": "/marin/marin-8b-instruct",
+    "text": "Marin\nFree Endpoint\nmarin-8b-instruct\nState-of-the-art open model trained on open datasets, excelling in reasoning, math, and science.\nreasoning\n+3\n148K\n10mo"
+  },
+  {
+    "href": "/nvidia/magpie-tts-zeroshot",
+    "text": "NVIDIA\nFree Endpoint\nmagpie-tts-zeroshot\nExpressive and engaging text-to-speech, generated from a short audio sample.\ntts\n+3\n1.55K\n10mo"
+  },
+  {
+    "href": "/ibm/granite-3_3-8b-instruct",
+    "text": "IBM\nFree Endpoint\ngranite-3.3-8b-instruct\nSmall language model fine-tuned for improved reasoning, coding, and instruction-following\ncoding\n+2\n9mo"
+  },
+  {
+    "href": "/mistralai/mistral-small-3_1-24b-instruct-2503",
+    "text": "Mistral AI\nFree Endpoint\nmistral-small-3.1-24b-instruct-2503\nEfficient multimodal model excelling at multilingual tasks, image understanding, and fast-responses\nlanguage generation\n+2\n1.52M\n11mo"
+  },
+  {
+    "href": "/mistralai/mistral-medium-3-instruct",
+    "text": "Mistral AI\nFree Endpoint\nmistral-medium-3-instruct\nPowerful, multimodal language model designed for enterprise applications, including software development, data analysis, and reasoning.\nlanguage generation\n+3\n1.5M\n9mo"
+  },
+  {
+    "href": "/meta/llama-4-maverick-17b-128e-instruct",
+    "text": "Meta\nFree Endpoint\nllama-4-maverick-17b-128e-instruct\nA general purpose multimodal, multilingual 128 MoE model with 17B parameters.\nlanguage generation\n+3\n8.25M\n9mo"
+  },
+  {
+    "href": "/meta/llama-4-scout-17b-16e-instruct",
+    "text": "Meta\nDownloadable\nFree Endpoint\nllama-4-scout-17b-16e-instruct\nA multimodal, multilingual 16 MoE model with 17B parameters.\nlanguage generation\n+3\n20.14K\n9mo"
+  },
+  {
+    "href": "/qwen/qwq-32b",
+    "text": "Qwen\nDeprecated\nFree Endpoint\nqwq-32b\nPowerful reasoning model capable of thinking and reasoning, can achieve significantly enhanced performance in downstream tasks, especially hard problems.\ncoding\n+3\n1.13M\n9mo"
+  },
+  {
+    "href": "/nvidia/cosmos-predict1-5b",
+    "text": "NVIDIA\nFree Endpoint\ncosmos-predict1-5b\nGenerates future frames of a physics-aware world state based on simply an image or short video prompt for physical AI development.\nsynthetic data generation\n+4\n888\n1y"
+  },
+  {
+    "href": "/nvidia/sparsedrive",
+    "text": "NVIDIA\nFree Endpoint\nsparsedrive\nEnd-to-end autonomous driving stack integrating perception, prediction, and planning with sparse scene representations for efficiency and safety.\nautonomous vehicles\n+3\n95\n8mo"
+  },
+  {
+    "href": "/nvidia/bevformer",
+    "text": "NVIDIA\nFree Endpoint\nbevformer\nAdvanced transformer for multi-frame bird's-eye-view 3D perception in autonomous driving.\nautonomous vehicles\n+3\n108\n8mo"
+  },
+  {
+    "href": "/nvidia/nv-embedcode-7b-v1",
+    "text": "NVIDIA\nFree Endpoint\nnv-embedcode-7b-v1\nThe NV-EmbedCode model is a 7B Mistral-based embedding model optimized for code retrieval, supporting text, code, and hybrid queries.\nnemo retriever\n+2\n201K\n10mo"
+  },
+  {
+    "href": "/google/gemma-3-27b-it",
+    "text": "Google\nFree Endpoint\ngemma-3-27b-it\nCutting-edge open multimodal model exceling in high-quality reasoning from images.\nvision assistant\n+3\n5.92M\n10mo"
+  },
+  {
+    "href": "/microsoft/phi-4-multimodal-instruct",
+    "text": "Microsoft\nFree Endpoint\nphi-4-multimodal-instruct\nCutting-edge open multimodal model exceling in high-quality reasoning from image and audio inputs.\nspeech recognition\n+4\n324K\n10mo"
+  },
+  {
+    "href": "/igenius/colosseum_355b_instruct_16k",
+    "text": "Igenius\nFree Endpoint\ncolosseum_355b_instruct_16k\nNVIDIA DGX Cloud trained multilingual LLM designed for mission critical use cases in regulated industries including financial services, government, heavy industry\nheavy industry\n+3\n10mo"
+  },
+  {
+    "href": "/tiiuae/falcon3-7b-instruct",
+    "text": "Tiiuae\nFree Endpoint\nfalcon3-7b-instruct\nInstruction tuned LLM achieving SoTA performance on reasoning, math and general knowledge capabilities\ncoding\n+5\n696K\n10mo"
+  },
+  {
+    "href": "/igenius/italia_10b_instruct_16k",
+    "text": "Igenius\nFree Endpoint\nitalia_10b_instruct_16k\nMultilingual LLM with emphasis on European languages supporting regulated use cases including financial services, government, heavy industry\nheavy industry\n+3\n51.48K\n10mo"
+  },
+  {
+    "href": "/qwen/qwen2_5-coder-7b-instruct",
+    "text": "Qwen\nFree Endpoint\nqwen2.5-coder-7b-instruct\nPowerful mid-size code model with a 32K context length, excelling in coding in multiple languages.\ncode completion\n+2\n250K\n10mo"
+  },
+  {
+    "href": "/nvidia/usdcode",
+    "text": "NVIDIA\nFree Endpoint\nusdcode\nState-of-the-art LLM that answers OpenUSD knowledge queries and generates USD-Python code.\ndigital twin\n+4\n9mo"
+  },
+  {
+    "href": "/university-at-buffalo/cached",
+    "text": "University at Buffalo\nFree Endpoint\ncached\nContext-aware chart extraction that can detect 18 classes for chart basic elements, excluding plot elements.\nnemo retriever\n+2\n156\n1y"
+  },
+  {
+    "href": "/nvidia/nemotron-4-mini-hindi-4b-instruct",
+    "text": "NVIDIA\nFree Endpoint\nnemotron-4-mini-hindi-4b-instruct\nA bilingual Hindi-English SLM for on-device inference, tailored specifically for Hindi Language.\nindic\n+3\n387K\n10mo"
+  },
+  {
+    "href": "/ibm/granite-guardian-3_0-8b",
+    "text": "IBM\nFree Endpoint\ngranite-guardian-3.0-8b\nDetects jailbreaking, bias, violence, profanity, sexual content, and unethical behavior\nguardrail\n+1\n44.67K\n1y"
+  },
+  {
+    "href": "/nvidia/llama-3_1-nemotron-70b-reward",
+    "text": "NVIDIA\nFree Endpoint\nllama-3.1-nemotron-70b-reward\nLeaderboard topping reward model supporting RLHF for better alignment with human preferences.\ntext-to-text\n+2\n247K\n1y"
+  },
+  {
+    "href": "/qwen/qwen2-7b-instruct",
+    "text": "Qwen\nFree Endpoint\nqwen2-7b-instruct\nChinese and English LLM targeting for language, coding, mathematics, reasoning, etc.\nchinese language generation\n+3\n154K\n10mo"
+  },
+  {
+    "href": "/abacusai/dracarys-llama-3_1-70b-instruct",
+    "text": "Abacus.AI\nFree Endpoint\ndracarys-llama-3.1-70b-instruct\nFine-tuned Llama 3.1 70B model for code generation, summarization, and multi-language tasks.\ncode generation\n+1\n252K\n10mo"
+  },
+  {
+    "href": "/meta/esm2-650m",
+    "text": "Meta\nFree Endpoint\nesm2-650m\nGenerates embeddings of proteins from their amino acid sequences.\nnim\n+4\n62.31K\n1y"
+  },
+  {
+    "href": "/microsoft/phi-3_5-vision-instruct",
+    "text": "Microsoft\nDeprecated\nFree Endpoint\nphi-3.5-vision-instruct\nCutting-edge open multimodal model exceling in high-quality reasoning from images.\nvision assistant\n+3\n1.22M\n1y"
+  },
+  {
+    "href": "/ai21labs/jamba-1_5-mini-instruct",
+    "text": "AI21 Labs\nFree Endpoint\njamba-1.5-mini-instruct\nCutting-edge MOE based LLM designed to excel in a wide array of generative AI tasks.\nchat\n+2\n85.13K\n10mo"
+  },
+  {
+    "href": "/nvidia/nemotron-mini-4b-instruct",
+    "text": "NVIDIA\nFree Endpoint\nnemotron-mini-4b-instruct\nOptimized SLM for on-device inference and fine-tuned for roleplay, RAG and function calling\nchat\n+2\n139K\n1y"
+  },
+  {
+    "href": "/nvidia/mistral-nemo-minitron-8b-base",
+    "text": "NVIDIA\nFree Endpoint\nmistral-nemo-minitron-8b-base\nState-of-the-art small language model delivering superior accuracy for chatbot, virtual assistants, and content generation.\nlanguage generation\n+4\n3.73K\n1y"
+  },
+  {
+    "href": "/microsoft/phi-3_5-mini",
+    "text": "Microsoft\nFree Endpoint\nphi-3.5-mini-instruct\nLightweight multilingual LLM powering AI applications in latency bound, memory/compute constrained environments\nchat\n+4\n2.36M\n1y"
+  },
+  {
+    "href": "/nvidia/nv-dinov2",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\nnv-dinov2\nNV-DINOv2 is a visual foundation model that generates vector embeddings for the input image.\ncomputer vision\n+4\n957K\n1y"
+  },
+  {
+    "href": "/rakuten/rakutenai-7b-instruct",
+    "text": "Rakuten\nFree Endpoint\nrakutenai-7b-instruct\nAdvanced state-of-the-art LLM with language understanding, superior reasoning, and text generation.\nchat\n+3\n46.16K\n10mo"
+  },
+  {
+    "href": "/rakuten/rakutenai-7b-chat",
+    "text": "Rakuten\nFree Endpoint\nrakutenai-7b-chat\nAdvanced state-of-the-art LLM with language understanding, superior reasoning, and text generation.\nchat\n+3\n46.73K\n10mo"
+  },
+  {
+    "href": "/nvidia/nv-grounding-dino",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\nnv-grounding-dino\nGrounding dino is an open vocabulary zero-shot object detection model.\nobject detection\n+4\n6.98K\n1y"
+  },
+  {
+    "href": "/google/shieldgemma-9b",
+    "text": "Google\nFree Endpoint\nshieldgemma-9b\nGuardrail model to ensure that responses from LLMs are appropriate and safe\nguardrail\n+1\n67.72K\n1y"
+  },
+  {
+    "href": "/google/gemma-2-2b-it",
+    "text": "Google\nFree Endpoint\ngemma-2-2b-it\nAdvanced small language generative AI model for edge applications\nchat\n+3\n265K\n10mo"
+  },
+  {
+    "href": "/nvidia/usdsearch",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\nusdsearch\nAI-powered search for OpenUSD data, 3D models, images, and assets using text or image-based inputs.\ndigital twin\n+4\n895\n1y"
+  },
+  {
+    "href": "/nvidia/usdvalidate",
+    "text": "NVIDIA\nFree Endpoint\nusdvalidate\nVerify compatibility of OpenUSD assets with instant RTX render and rule-based validation.\nvalidation\n+5\n1.19K\n1y"
+  },
+  {
+    "href": "/thudm/chatglm3-6b",
+    "text": "THUDM\nFree Endpoint\nchatglm3-6b\nSupports Chinese and English languages to handle tasks including chatbot, content generation, coding, and translation.\ntext translation\n+4\n65.61K\n9mo"
+  },
+  {
+    "href": "/mistralai/mamba-codestral-7b-v01",
+    "text": "Mistral AI\nFree Endpoint\nmamba-codestral-7b-v0.1\nModel for writing and interacting with code across a wide range of programming languages and tasks.\ncode completion\n+2\n188K\n10mo"
+  },
+  {
+    "href": "/baichuan-inc/baichuan2-13b-chat",
+    "text": "Baichuan AI\nFree Endpoint\nbaichuan2-13b-chat\nSupport Chinese and English chat, coding, math, instruction following, solving quizzes\nchinese language generation\n+3\n143K\n10mo"
+  },
+  {
+    "href": "/microsoft/phi-3-medium-128k-instruct",
+    "text": "Microsoft\nFree Endpoint\nphi-3-medium-128k-instruct\nCutting-edge lightweight open language model exceling in high-quality reasoning.\nchat\n+4\n97K\n10mo"
+  },
+  {
+    "href": "/google/gemma-2-27b-it",
+    "text": "Google\nFree Endpoint\ngemma-2-27b-it\nCutting-edge text generation model text understanding, transformation, and code generation.\nchat\n+3\n645K\n10mo"
+  },
+  {
+    "href": "/nvidia/chatqa-1-5-8b",
+    "text": "NVIDIA\nFree Endpoint\nllama3-chatqa-1.5-8b\nAdvanced LLM to generate high-quality, context-aware responses for chatbots and search engines.\ntext-to-text\n+2\n51.3K\n10mo"
+  },
+  {
+    "href": "/stabilityai/stable-diffusion-3-medium",
+    "text": "Stability AI\nDeprecated\nFree Endpoint\nstable-diffusion-3-medium\nAdvanced text-to-image model for generating high quality images\ntext-to-image\n+1\n93.04K\n1y"
+  },
+  {
+    "href": "/nvidia/ocdrnet",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\nocdrnet\nOCDNet and OCRNet are pre-trained models designed for optical character detection and recognition respectively.\noptical character recognition\n+8\n1.08K\n1y"
+  },
+  {
+    "href": "/nvidia/nv-embed-v1",
+    "text": "NVIDIA\nFree Endpoint\nnv-embed-v1\nGenerates high-quality numerical embeddings from text inputs.\nnon-commercial use only\n+2\n4.31M\n8mo"
+  },
+  {
+    "href": "/upstage/solar-10_7b-instruct",
+    "text": "Upstage\nFree Endpoint\nsolar-10.7b-instruct\nExcels in NLP tasks, particularly in instruction-following, reasoning, and mathematics.\nnon-commercial use only\n+4\n89.61K\n1y"
+  },
+  {
+    "href": "/mediatek/breeze-7b-instruct",
+    "text": "MediaTek\nFree Endpoint\nbreeze-7b-instruct\nLLM for improved language comprehension and chatbot-oriented capabilities in Traditional Chinese.\nchat\n+2\n56.15K\n10mo"
+  },
+  {
+    "href": "/nvidia/visual-changenet",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\nvisual-changenet\nVisual Changenet detects pixel-level change maps between two images and outputs a semantic change segmentation mask\nimage\n+8\n613\n1y"
+  },
+  {
+    "href": "/nvidia/retail-object-detection",
+    "text": "NVIDIA\nDeprecated\nFree Endpoint\nretail-object-detection\nEfficientDet-based object detection network to detect 100 specific retail objects from an input video.\nobject detection\n+8\n500\n1y"
+  },
+  {
+    "href": "/microsoft/phi-3-small-8k-instruct",
+    "text": "Microsoft\nFree Endpoint\nphi-3-small-8k-instruct\nCutting-edge lightweight open language model exceling in high-quality reasoning.\nchat\n+4\n45.5K\n10mo"
+  },
+  {
+    "href": "/microsoft/phi-3-small-128k-instruct",
+    "text": "Microsoft\nFree Endpoint\nphi-3-small-128k-instruct\nLong context cutting-edge lightweight open language model exceling in high-quality reasoning.\nchat\n+4\n61.97K\n10mo"
+  },
+  {
+    "href": "/microsoft/phi-3-medium-4k-instruct",
+    "text": "Microsoft\nFree Endpoint\nphi-3-medium-4k-instruct\nCutting-edge lightweight open language model exceling in high-quality reasoning.\nchat\n+4\n56.67K\n10mo"
+  },
+  {
+    "href": "/google/google-paligemma",
+    "text": "Google\nFree Endpoint\npaligemma\nVision language model adept at comprehending text and visual inputs to produce informative responses\nimage\n+8\n44.48K\n1y"
+  },
+  {
+    "href": "/aisingapore/sea-lion-7b-instruct",
+    "text": "AI Singapore\nFree Endpoint\nsea-lion-7b-instruct\nLLM to represent and serve the linguistic and cultural diversity of Southeast Asia\nchat\n+3\n1y"
+  },
+  {
+    "href": "/microsoft/phi-3-mini",
+    "text": "Microsoft\nFree Endpoint\nphi-3-mini-128k-instruct\nLightweight, state-of-the-art open LLM with strong math and logical reasoning skills.\nchat\n+4\n108K\n10mo"
+  },
+  {
+    "href": "/nvidia/rerank-qa-mistral-4b",
+    "text": "NVIDIA\nFree Endpoint\nrerank-qa-mistral-4b\nGPU-accelerated model optimized for providing a probability score that a given passage contains the information to answer a question.\nranking\n+2\n403K\n1y"
+  },
+  {
+    "href": "/google/gemma-7b",
+    "text": "Google\nFree Endpoint\ngemma-7b\nCutting-edge text generation model text understanding, transformation, and code generation.\nchat\n+3\n394K\n11mo"
+  },
+  {
+    "href": "/mistralai/mistral-7b-instruct-v2",
+    "text": "Mistral AI\nFree Endpoint\nmistral-7b-instruct-v0.2\nThis LLM follows instructions, completes requests, and generates creative text.\ntext-to-text\n+2\n157K\n10mo"
+  },
+  {
+    "href": "/meta/esmfold",
+    "text": "Meta\nFree Endpoint\nesmfold\nPredicts the 3D structure of a protein from its amino acid sequence.\nbiology\n+4\n550K\n10mo"
+  }
+]

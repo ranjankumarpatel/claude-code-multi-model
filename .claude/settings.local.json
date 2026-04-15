@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh repo:*)",
+      "Bash(gh api:*)",
+      "Bash(ollama list:*)",
+      "Bash(curl -s http://localhost:11434/api/tags)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(node mcp-ollama.mjs)",
+      "Bash(ollama pull:*)",
+      "Bash(echo \"Pulling in background \\(PID $!\\)\")",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\(JSON.stringify\\(d.models,null,2\\)\\)\")",
+      "Bash(curl -s \"https://ollama.com/api/search?q=gemma4&limit=5\")",
+      "Bash(ollama search:*)",
+      "Bash(ollama show:*)",
+      "WebFetch(domain:ollama.com)",
+      "Bash(ollama auth:*)",
+      "Bash(ollama --help)",
+      "Bash(curl:*)",
+      "Bash(wait)",
+      "Bash(node C:/github/claude-code-multi-model/plugins/ollama/scripts/ollama-companion.mjs setup)",
+      "Bash(node C:/github/claude-code-multi-model/plugins/ollama/scripts/ollama-companion.mjs models)",
+      "Bash(node:*)",
+      "WebFetch(domain:build.nvidia.com)",
+      "Bash(NVIDIA_API_KEY=\"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\" node:*)",
+      "WebFetch(domain:docs.api.nvidia.com)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_wait_for",
+      "mcp__playwright__browser_evaluate",
+      "Bash(npm root *)",
+      "Bash(NODE_PATH=\"C:\\\\\\\\Users\\\\\\\\ranja\\\\\\\\AppData\\\\\\\\Roaming\\\\\\\\npm\\\\\\\\node_modules\" node -e \"import\\('@modelcontextprotocol/sdk/server/mcp.js'\\).then\\(\\(\\)=>console.log\\('sdk ok'\\)\\); import\\('zod'\\).then\\(\\(\\)=>console.log\\('zod ok'\\)\\);\")",
+      "Bash(MCP_GLOBAL_MODULES=\"C:\\\\\\\\Users\\\\\\\\ranja\\\\\\\\AppData\\\\\\\\Roaming\\\\\\\\npm\\\\\\\\node_modules\" NVIDIA_API_KEY=x timeout 3 node mcp-nvidia.mjs)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(ls \"c:/github/claude-code-multi-model/plugins/ollama/\"*/)",
+      "Bash(wc -l mcp-ollama.mjs mcp-nvidia.mjs mcp-security-nvidia.mjs plugins/ollama/commands/*.md plugins/ollama/scripts/ollama-companion.mjs plugins/ollama/hooks/hooks.json)"
+    ]
+  }
+}

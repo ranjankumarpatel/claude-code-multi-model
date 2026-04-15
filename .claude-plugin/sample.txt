@@ -1,0 +1,48 @@
+import axios from 'axios';
+import { readFile } from 'node:fs/promises';
+
+const invokeUrl = "https://integrate.api.nvidia.com/v1/chat/completions";
+const stream = true;
+
+const headers = {
+  "Authorization": "Bearer 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",
+  "Accept": stream ? "text/event-stream" : "application/json"
+};
+
+Promise.all([readFile("image_1.png"), ])
+  .then((imageBuffers) => {
+    const image_1_b64 = Buffer.from(imageBuffers[0]).toString('base64');
+    
+
+    const payload = {
+      "model": `google/gemma-4-31b-it`,
+      "messages": [
+      {
+        "role": "user",
+        "content": [{"type":"image_url","image_url":{"url":`data:image/png;base64,${image_1_b64}`}},{"type":"text","text":"What is in this image?"}]
+      }
+    ],
+      "max_tokens": 16384,
+      "temperature": 1.00,
+      "top_p": 0.95,
+      "stream": stream,
+      "chat_template_kwargs": {"enable_thinking":true},
+      
+      
+    };
+
+    return axios.post(invokeUrl, payload, { headers: headers, responseType: stream ? 'stream' : 'json' });
+  })
+
+  .then(response => {
+    if (stream) {
+      response.data.on('data', (chunk) => {
+        console.log(chunk.toString());
+      });
+    } else {
+      console.log(JSON.stringify(response.data));
+    }
+  })
+  .catch(error => {
+    console.error(error);
+  });

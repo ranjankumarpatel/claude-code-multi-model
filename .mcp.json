@@ -1,0 +1,32 @@
+{
+  "mcpServers": {
+    "ollama": {
+      "command": "node",
+      "args": ["./mcp-ollama.mjs"],
+      "env": {
+        "OLLAMA_HOST": "http://localhost:11434",
+        "MCP_GLOBAL_MODULES": "C:\\Users\\ranja\\AppData\\Roaming\\npm\\node_modules"
+      }
+    },
+    "nvidia-nim": {
+      "command": "node",
+      "args": ["./mcp-nvidia.mjs"],
+      "env": {
+        "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
+        "MCP_GLOBAL_MODULES": "C:\\Users\\ranja\\AppData\\Roaming\\npm\\node_modules"
+      }
+    },
+    "nvidia-security": {
+      "command": "node",
+      "args": ["./mcp-security-nvidia.mjs"],
+      "env": {
+        "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
+        "MCP_GLOBAL_MODULES": "C:\\Users\\ranja\\AppData\\Roaming\\npm\\node_modules"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    }
+  }
+}

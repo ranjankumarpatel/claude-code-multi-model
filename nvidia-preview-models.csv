@@ -1,0 +1,97 @@
+vendor,model,tag,llm_type,use_for
+nvidia,ising-calibration-1-35b-a3b,Quantum,other,Quantum circuit calibration research
+minimaxai,minimax-m2.7,coding,llm,General coding assistance
+nvidia,audio2face-3d-claire-notongue,Digital Humans,other,Avatar lip-sync (female) for games/virtual humans
+nvidia,audio2face-3d-james-notongue,Digital Humans,other,Avatar lip-sync (male) for games/virtual humans
+nvidia,audio2face-3d-james,Digital Humans,other,Full-face avatar animation from audio
+nvidia,nemotron-voicechat,English,other,English voice chat / conversational speech
+nvidia,gliner-pii,PII Detection,other,Redact PII in text pipelines
+nvidia,cosmos-transfer2_5-2b,World Model,other,Physical-AI / robotics video-to-video simulation
+stepfun-ai,step-3.5-flash,Agentic,llm,Fast agentic workflows and tool use
+z-ai,glm4_7,Tool Calling,llm,Tool-calling agents
+nvidia,nemotron-content-safety-reasoning-4b,NeMo Guardrails,sllm,Safety/guardrail classifier for LLM I/O
+deepseek-ai,deepseek-v3_2,long context,llm,Long-document reasoning and RAG
+nvidia,riva-translate-4b-instruct-v1_1,nvidia nim,sllm,Machine translation
+mistralai,devstral-2-123b-instruct-2512,coding,llm,Heavy coding / repo-level agents
+moonshotai,kimi-k2-thinking,Conversational,llm,Deep reasoning chat (Opus-peer)
+mistralai,mistral-large-3-675b-instruct-2512,language generation,llm,Frontier general-purpose generation
+nvidia,streampetr,autonomous vehicles,other,AV multi-view 3D perception
+nvidia,llama-3_1-nemotron-safety-guard-8b-v3,content moderation,sllm,Input/output moderation
+deepseek-ai,deepseek-v3_1-terminus,tool calling,llm,Agentic tool-calling
+moonshotai,kimi-k2-instruct-0905,long-context,llm,Long-context instruct tasks
+speakleash,bielik-11b-v2_6-instruct,Polish,mllm,Polish-language chat
+bytedance,seed-oss-36b-instruct,thinking budget,mllm,Adjustable-thinking reasoning
+qwen,qwen3-coder-480b-a35b-instruct,agentic coding,llm,Large-scale agentic coding
+deepseek-ai,deepseek-v3_1,Reasoning,llm,Math/logic/reasoning tasks
+nvidia,llama-3_2-nemoretriever-300m-embed-v1,Embedding,other,Text embeddings for RAG
+microsoft,phi-4-mini-flash-reasoning,edge,sllm,On-device / edge reasoning
+moonshotai,kimi-k2-instruct,coding,llm,Coding + agentic
+mistralai,magistral-small-2506,coding,sllm,Small coding assistant
+nvidia,magpie-tts-flow,TTS,other,Streaming text-to-speech
+meta,llama-guard-4-12b,LLM Multimodal Safety,mllm,Multimodal (text+image) safety guard
+google,gemma-3n-e4b-it,language generation,sllm,Compact on-device chat
+google,gemma-3n-e2b-it,language generation,sllm,Ultra-light on-device chat
+nvidia,cosmos-transfer1-7b,World Model,other,Sim-to-real video generation
+mistralai,mistral-nemotron,language generation,llm,General chat/generation
+marin,marin-8b-instruct,Reasoning,sllm,Open small reasoning model
+nvidia,magpie-tts-zeroshot,TTS,other,Zero-shot voice cloning TTS
+ibm,granite-3_3-8b-instruct,coding,sllm,Enterprise code assistance
+mistralai,mistral-small-3_1-24b-instruct-2503,language generation,mllm,Balanced general chat
+mistralai,mistral-medium-3-instruct,language generation,mllm,Mid-tier general chat
+meta,llama-4-maverick-17b-128e-instruct,language generation,llm,MoE general chat
+meta,llama-4-scout-17b-16e-instruct,language generation,llm,Lean MoE chat
+qwen,qwq-32b,coding,mllm,Coding + reasoning
+nvidia,cosmos-predict1-5b,World Model,other,Future-frame prediction for robotics
+nvidia,sparsedrive,autonomous vehicles,other,End-to-end AV planning
+nvidia,bevformer,autonomous vehicles,other,Birds-eye-view AV perception
+nvidia,nv-embedcode-7b-v1,nemo retriever,other,Code embeddings for code-RAG
+google,gemma-3-27b-it,Vision Assistant,mllm,Multimodal vision+text assistant
+microsoft,phi-4-multimodal-instruct,Speech Recognition,sllm,Speech + vision + text
+igenius,colosseum_355b_instruct_16k,Heavy industry,llm,Industrial/regulated enterprise chat
+tiiuae,falcon3-7b-instruct,Coding,sllm,Small coder
+igenius,italia_10b_instruct_16k,Heavy industry,mllm,Italian enterprise chat
+qwen,qwen2_5-coder-7b-instruct,code completion,sllm,IDE code completion
+nvidia,usdcode,USD,other,OpenUSD code generation (Omniverse)
+university-at-buffalo,cached,nemo retriever,other,Retrieval / RAG
+nvidia,nemotron-4-mini-hindi-4b-instruct,Indic,sllm,Hindi chat
+ibm,granite-guardian-3_0-8b,Guardrail,sllm,Risk/guardrail classifier
+nvidia,llama-3_1-nemotron-70b-reward,Text-to-text,llm,Reward model for RLHF/eval
+qwen,qwen2-7b-instruct,Chinese Language Generation,sllm,Chinese chat
+abacusai,dracarys-llama-3_1-70b-instruct,Code Generation,llm,Large code generation
+meta,esm2-650m,nim,other,Protein sequence embeddings
+microsoft,phi-3_5-vision-instruct,Vision Assistant,sllm,Small vision-language
+ai21labs,jamba-1_5-mini-instruct,Chat,mllm,Long-context hybrid SSM chat
+nvidia,nemotron-mini-4b-instruct,Chat,sllm,Small general chat
+nvidia,mistral-nemo-minitron-8b-base,language generation,sllm,Compressed base LLM
+microsoft,phi-3_5-mini,Chat,sllm,Small chat
+nvidia,nv-dinov2,computer vision,other,Image feature extraction
+rakuten,rakutenai-7b-instruct,Chat,sllm,Japanese instruct chat
+rakuten,rakutenai-7b-chat,Chat,sllm,Japanese chat
+nvidia,nv-grounding-dino,Object Detection,other,Open-vocab object detection
+google,shieldgemma-9b,Guardrail,sllm,Safety classifier
+google,gemma-2-2b-it,Chat,sllm,Tiny chat
+nvidia,usdsearch,USD,other,Semantic search over OpenUSD scenes
+nvidia,usdvalidate,Validation,other,OpenUSD asset validation
+thudm,chatglm3-6b,Chat,sllm,Chinese/English chat
+mistralai,mamba-codestral-7b-v01,code completion,sllm,Mamba-arch code completion
+baichuan-inc,baichuan2-13b-chat,Chinese Language Generation,mllm,Chinese chat
+microsoft,phi-3-medium-128k-instruct,Chat,mllm,Long-context mid chat
+google,gemma-2-27b-it,Chat,mllm,Mid chat
+nvidia,chatqa-1-5-8b,text-to-text,sllm,Conversational QA over docs
+stabilityai,stable-diffusion-3-medium,Image Generation,other,Text-to-image
+nvidia,ocdrnet,Optical Character Recognition,other,OCR for documents
+nvidia,nv-embed-v1,Non-Commercial Use Only,other,Research embeddings (non-commercial)
+upstage,solar-10_7b-instruct,Non-Commercial Use Only,mllm,Research chat (non-commercial)
+mediatek,breeze-7b-instruct,Chat,sllm,Traditional Chinese chat
+nvidia,visual-changenet,image,other,Image change detection
+nvidia,retail-object-detection,Object Detection,other,Retail shelf / product detection
+microsoft,phi-3-small-8k-instruct,Chat,sllm,Small chat (8k)
+microsoft,phi-3-small-128k-instruct,Chat,sllm,Small chat (128k)
+microsoft,phi-3-medium-4k-instruct,Chat,mllm,Mid chat (4k)
+google,google-paligemma,image,other,Vision-language (captions/VQA)
+aisingapore,sea-lion-7b-instruct,Chat,sllm,Southeast Asian languages chat
+microsoft,phi-3-mini,Chat,sllm,Ultra-small chat
+nvidia,rerank-qa-mistral-4b,Ranking,other,Reranker for RAG
+google,gemma-7b,Chat,sllm,Base chat
+mistralai,mistral-7b-instruct-v2,Text-to-Text,sllm,Classic small chat
+meta,esmfold,biology,other,Protein structure prediction
