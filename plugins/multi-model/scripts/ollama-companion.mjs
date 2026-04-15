@@ -348,7 +348,7 @@ async function cmdVerify() {
   console.log("\n[6] NVIDIA NIM");
   const nvidiaKey = process.env.NVIDIA_API_KEY;
   const hasKey = !!(nvidiaKey && nvidiaKey.length > 10);
-  allOk &= check("NVIDIA_API_KEY set", hasKey, hasKey ? `${nvidiaKey.slice(0, 8)}...` : "set in .claude/settings.json mcpServers nvidia-nim env");
+  allOk &= check("NVIDIA_API_KEY set", hasKey, hasKey ? "present (redacted)" : "set in .claude/settings.json mcpServers nvidia-nim env");
   const nimScript = resolve(REPO_ROOT, "mcp-nvidia.mjs");
   allOk &= check("mcp-nvidia.mjs exists", existsSync(nimScript));
   if (existsSync(nimScript)) {
