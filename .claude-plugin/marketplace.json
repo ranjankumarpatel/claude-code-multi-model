@@ -10,12 +10,15 @@
   "plugins": [
     {
       "name": "multi-model",
-      "source": "C:/Users/ranja/.cache/claude-code-multi-model/plugins/multi-model",
-      "version": "1.0.0"
+      "source": "./plugins/multi-model",
+      "version": "1.1.0"
     },
     {
       "name": "codex",
-      "source": "https://github.com/openai/codex-plugin-cc",
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      },
       "version": "latest"
     }
   ]

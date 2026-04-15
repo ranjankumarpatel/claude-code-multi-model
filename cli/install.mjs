@@ -85,16 +85,17 @@ function installMarketplace(repoDir) {
     source = './plugins/multi-model';
     log(`copied plugin → ${dest}`);
   } else {
-    source = join(repoDir, 'plugins', 'multi-model').replace(/\\/g, '/');
+    const abs = join(repoDir, 'plugins', 'multi-model').replace(/\\/g, '/');
+    source = { source: 'local', path: abs };
   }
 
   const cfg = existsSync(cfgPath)
     ? JSON.parse(readFileSync(cfgPath, 'utf8'))
     : { name: 'local-marketplace', owner: { name: 'local' }, plugins: [] };
   cfg.plugins = cfg.plugins.filter((p) => p.name !== 'multi-model' && p.name !== 'codex');
-  cfg.plugins.push({ name: 'multi-model', source, version: '1.0.0' });
+  cfg.plugins.push({ name: 'multi-model', source, version: '1.1.0' });
   if (args['with-codex']) {
-    cfg.plugins.push({ name: 'codex', source: 'https://github.com/openai/codex-plugin-cc', version: 'latest' });
+    cfg.plugins.push({ name: 'codex', source: { source: 'github', repo: 'openai/codex-plugin-cc' }, version: 'latest' });
   }
   writeFileSync(cfgPath, JSON.stringify(cfg, null, 2) + '\n');
   log(`wrote ${cfgPath}`);

@@ -3,9 +3,6 @@
   "enabledPlugins": {
     "codex@openai-codex": true
   },
-  "env": {
-    "NVIDIA_API_KEY": "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"
-  },
   "permissions": {
     "allow": [
       "mcp__playwright"
