@@ -1,11 +1,12 @@
 # MCP Server Setup
 
-Local MCP servers in this repo (`mcp-ollama.mjs`, `mcp-nvidia.mjs`, `mcp-security-nvidia.mjs`) resolve their dependencies from a **globally installed** npm package set. No local `package.json`, `package-lock.json`, or `node_modules` are kept in-tree.
+Local MCP servers in this repo (`mcp-ollama.mjs`, `mcp-nvidia.mjs`, `mcp-security-nvidia.mjs`, `plugins/multi-model/scripts/mcp-copilot.mjs`) resolve their dependencies from a **globally installed** npm package set. No local `package.json`, `package-lock.json`, or `node_modules` are kept in-tree.
 
 ## Prerequisites
 
 - Node.js ≥ 18
 - npm on PATH
+- GitHub CLI (`gh`) on PATH — required for the `copilot` server
 
 ## 1. Install dependencies globally
 
@@ -50,13 +51,42 @@ Set `MCP_GLOBAL_MODULES` in each server's `env` to the output of `npm root -g`:
 ```json
 {
   "mcpServers": {
+    "ollama": {
+      "command": "node",
+      "args": ["./mcp-ollama.mjs"],
+      "env": {
+        "OLLAMA_HOST": "http://localhost:11434",
+        "MCP_GLOBAL_MODULES": "C:\\Users\\<user>\\AppData\\Roaming\\npm\\node_modules"
+      }
+    },
     "nvidia-nim": {
       "command": "node",
       "args": ["./mcp-nvidia.mjs"],
       "env": {
         "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
-        "MCP_GLOBAL_MODULES": "C:\\Users\\ranja\\AppData\\Roaming\\npm\\node_modules"
+        "MCP_GLOBAL_MODULES": "C:\\Users\\<user>\\AppData\\Roaming\\npm\\node_modules"
       }
+    },
+    "nvidia-security": {
+      "command": "node",
+      "args": ["./mcp-security-nvidia.mjs"],
+      "env": {
+        "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
+        "MCP_GLOBAL_MODULES": "C:\\Users\\<user>\\AppData\\Roaming\\npm\\node_modules"
+      }
+    },
+    "copilot": {
+      "command": "node",
+      "args": ["./plugins/multi-model/scripts/mcp-copilot.mjs"],
+      "env": {
+        "GH_TOKEN": "${GH_TOKEN}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "MCP_GLOBAL_MODULES": "C:\\Users\\<user>\\AppData\\Roaming\\npm\\node_modules"
+      }
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
     }
   }
 }
@@ -64,20 +94,31 @@ Set `MCP_GLOBAL_MODULES` in each server's `env` to the output of `npm root -g`:
 
 Required env per server:
 
-| Server            | Required env                                    |
-| ----------------- | ----------------------------------------------- |
-| `ollama`          | `OLLAMA_HOST`, `MCP_GLOBAL_MODULES`             |
-| `nvidia-nim`      | `NVIDIA_API_KEY`, `MCP_GLOBAL_MODULES`          |
-| `nvidia-security` | `NVIDIA_API_KEY`, `MCP_GLOBAL_MODULES`          |
-| `playwright`      | none (runs via `npx -y @playwright/mcp@latest`) |
+| Server            | Required env                                              |
+| ----------------- | --------------------------------------------------------- |
+| `ollama`          | `OLLAMA_HOST`, `MCP_GLOBAL_MODULES`                       |
+| `nvidia-nim`      | `NVIDIA_API_KEY`, `MCP_GLOBAL_MODULES`                    |
+| `nvidia-security` | `NVIDIA_API_KEY`, `MCP_GLOBAL_MODULES`                    |
+| `copilot`         | `GH_TOKEN` or `GITHUB_TOKEN`, `MCP_GLOBAL_MODULES`        |
+| `playwright`      | none (runs via `npx -y @playwright/mcp@latest`)           |
 
-## 4. Smoke test
+## 4. Smoke tests
 
 ```bash
+# Ollama
+MCP_GLOBAL_MODULES="$(npm root -g)" OLLAMA_HOST=http://localhost:11434 node mcp-ollama.mjs
+
+# NVIDIA NIM
 MCP_GLOBAL_MODULES="$(npm root -g)" NVIDIA_API_KEY=x node mcp-nvidia.mjs
+
+# NVIDIA Security
+MCP_GLOBAL_MODULES="$(npm root -g)" NVIDIA_API_KEY=x node mcp-security-nvidia.mjs
+
+# Copilot (requires gh auth login first)
+MCP_GLOBAL_MODULES="$(npm root -g)" GH_TOKEN=$(gh auth token) node plugins/multi-model/scripts/mcp-copilot.mjs
 ```
 
-Server should start on stdio with no module-resolution errors. Ctrl+C to stop.
+Each server should start on stdio with no module-resolution errors. Ctrl+C to stop.
 
 ## 5. Upgrading
 
@@ -92,5 +133,3 @@ No lockfile in this repo — global install is the source of truth.
 ```bash
 npm uninstall -g @modelcontextprotocol/sdk zod
 ```
-
-

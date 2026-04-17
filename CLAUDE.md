@@ -27,3 +27,9 @@
 - Pattern: Opus plans → Sonnet/Haiku/Codex execute → Codex reviews → Opus synthesizes.
 - **Parallelize executors** — run Sonnet/Haiku/Ollama/Codex subagents concurrently whenever tasks are independent. Single message, multiple `Agent` tool calls. Examples: multi-file edits, parallel searches across modules, rendering several templates, validating multiple XMLs. Only serialize when outputs feed each other.
 - Split by task weight: Haiku for bulk/simple (grep, rename, format, read-many), Sonnet for reasoning-heavy (refactors, template logic, debugging), Ollama cloud for second-opinion or alternative-model tasks, Codex for code review / verification / rescue execution. Opus never executes — only dispatches and synthesizes.
+
+## README auto-update
+
+- **Skill**: `/update-readme [path]` — analyzes codebase and regenerates README to match current state. Defaults to `plugins/multi-model/README.md`.
+- **Hook**: `PostToolUse` on `Bash(git commit *)` — after every commit, checks if code files changed and reminds to run `/update-readme`.
+- Run `/update-readme` manually after pulling changes, rebasing, or adding new commands/skills/MCP servers.
