@@ -7,5 +7,20 @@
     "allow": [
       "mcp__playwright"
     ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *)",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-commit-readme.sh\"",
+            "statusMessage": "Checking if README needs updating..."
+          }
+        ]
+      }
+    ]
   }
 }
