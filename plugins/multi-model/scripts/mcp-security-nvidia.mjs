@@ -23,13 +23,7 @@ if (!API_KEY) {
 
 const SECURITY_MODELS = [
   {
-    id: "deepseek-ai/deepseek-r1",
-    alias: "deepseek-r1",
-    role: "audit-reasoner",
-    strengths: "Deep chain-of-thought — root-cause analysis, threat modeling, exploit reasoning, code audits",
-    thinking: true,
-  },
-  {
+    // deepseek-ai/deepseek-r1 reached EOL 2026-01-26 (410 Gone). Removed.
     id: "nvidia/llama-3.1-nemotron-ultra-253b-v1",
     alias: "nemotron-ultra",
     role: "audit-reasoner",
@@ -150,19 +144,19 @@ server.tool(
   "nvidia_security_chat",
   [
     "Chat with a NVIDIA NIM security/audit model. OpenAI-compatible API.",
-    "Roles: audit-reasoner (deepseek-r1, nemotron-ultra), code-auditor (qwen3-coder, devstral),",
+    "Roles: audit-reasoner (nemotron-ultra), code-auditor (qwen3-coder, devstral),",
     "safety-classifier (llama-guard, nemotron-safety, nemotron-safety-reason),",
     "risk-classifier (granite-guardian, shieldgemma), pii-detector (gliner-pii).",
     "Use for: authorized pentest reasoning, code-review for CVEs/OWASP, SAST triage, threat modeling,",
     "prompt-injection detection, LLM output moderation, PII scrubbing, compliance audits.",
-    "Default: deepseek-r1 (reasoning). Temperature set low (0.2) for auditable, deterministic output.",
+    "Default: nemotron-ultra (flagship reasoner). Temperature set low (0.2) for auditable, deterministic output.",
   ].join(" "),
   {
     model: z
       .string()
       .optional()
       .describe(
-        "Model ID or alias. Aliases: deepseek-r1, nemotron-ultra, qwen3-coder, devstral, llama-guard, nemotron-safety, nemotron-safety-reason, granite-guardian, shieldgemma, gliner-pii. Default: deepseek-r1."
+        "Model ID or alias. Aliases: nemotron-ultra, qwen3-coder, devstral, llama-guard, nemotron-safety, nemotron-safety-reason, granite-guardian, shieldgemma, gliner-pii. Default: nemotron-ultra."
       ),
     messages: z
       .array(
@@ -175,7 +169,7 @@ server.tool(
     thinking: z
       .boolean()
       .optional()
-      .describe("Enable extended thinking/CoT (best for deepseek-r1 on audit reasoning). Default: false."),
+      .describe("Enable extended thinking/CoT (not currently supported by active audit-reasoner models). Default: false."),
     max_tokens: z.number().optional().describe("Max tokens in response. Default: 4096."),
   },
   async ({ model, messages, thinking = false, max_tokens = 4096 }) => {

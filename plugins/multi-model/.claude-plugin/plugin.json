@@ -1,6 +1,6 @@
 {
   "name": "multi-model",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Portable multi-model orchestration: delegate to Ollama cloud, NVIDIA NIM, NVIDIA Security, and Codex from Claude Code.",
   "author": { "name": "ranjankumarpatel" },
   "mcpServers": {
@@ -25,6 +25,15 @@
       "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/mcp-security-nvidia.mjs"],
       "env": {
         "NVIDIA_API_KEY": "${NVIDIA_API_KEY}",
+        "MCP_GLOBAL_MODULES": "${MCP_GLOBAL_MODULES}"
+      }
+    },
+    "copilot": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/scripts/mcp-copilot.mjs"],
+      "env": {
+        "GH_TOKEN": "${GH_TOKEN}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
         "MCP_GLOBAL_MODULES": "${MCP_GLOBAL_MODULES}"
       }
     }

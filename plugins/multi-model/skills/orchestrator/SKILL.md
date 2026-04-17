@@ -10,9 +10,10 @@ description: Opus auto-routes every task to the right model without asking. Trig
 ## Roles
 - **Opus** — plan, route, synthesize. Never edits files / runs shell directly.
 - **Sonnet / Haiku** — primary executors via `Agent` tool.
-- **Ollama cloud** (`mcp__ollama__ollama_chat`): `gemma4:31b-cloud`, `kimi-k2.5:cloud`, `kimi-k2-thinking:cloud`.
-- **NVIDIA NIM** (`mcp__nvidia-nim__nvidia_chat`): nemotron-ultra, nemotron-super, deepseek-r1, llama405b, mistral-large, gemma4.
+- **Ollama cloud** (`mcp__ollama__ollama_chat`): `gemma4:31b-cloud`, `kimi-k2.5:cloud`, `kimi-k2-thinking:cloud`. Agentic-coding variants also available: `glm-5.1:cloud` (SWE-Bench SOTA), `qwen3-coder:480b-cloud` (long-context), `devstral-2:123b-cloud` (repo edits+tools), `kimi-k2:1t-cloud`, `gpt-oss:120b-cloud`, `nemotron-3-super:cloud`, `minimax-m2:cloud`, `deepseek-v3.2:cloud`, `glm-4.6:cloud`, `qwen3-coder-next:cloud`, `devstral-small-2:24b-cloud`, `mistral-large-3:675b-cloud`.
+- **NVIDIA NIM** (`mcp__nvidia-nim__nvidia_chat`): nemotron-ultra, nemotron-super, llama405b, mistral-large, gemma4. (deepseek-r1 EOL 2026-01-26)
 - **NVIDIA Security** (`mcp__nvidia-security__nvidia_security_chat`): audits, PII, guardrails.
+- **GitHub Copilot CLI** (`mcp__copilot__copilot_chat`): cross-vendor model picker — Claude, GPT-5.3-Codex, Gemini 3 Pro — through one GitHub auth. 1 premium request per call.
 - **Codex** — `/codex:review`, `/codex:adversarial-review`, `codex:codex-rescue` subagent.
 
 ## Auto-routing rubric (apply silently)
@@ -21,12 +22,14 @@ description: Opus auto-routes every task to the right model without asking. Trig
 |---|---|
 | Bulk read, grep, rename, format, list files | Haiku |
 | Multi-file refactor, template logic, debugging, test writing | Sonnet |
-| Deep reasoning / chain-of-thought / hard logic puzzle | `kimi-k2-thinking:cloud` or `deepseek-r1` |
+| Deep reasoning / chain-of-thought / hard logic puzzle | `kimi-k2-thinking:cloud` or `nemotron-ultra` |
 | Coding w/ second opinion or alt-frontier | `gemma4:31b-cloud` or `nemotron-ultra` |
-| Long-context / agentic / vision+language | `kimi-k2.5:cloud` |
+| Agentic coding / SWE-Bench / repo-level edits | `glm-5.1:cloud` (SOTA) → `devstral-2:123b-cloud` → `qwen3-coder:480b-cloud` |
+| Long-context / agentic / vision+language | `kimi-k2.5:cloud` or `mistral-large-3:675b-cloud` (vision) |
 | Multilingual / non-English code | `mistral-large` |
 | Large general-purpose | `llama405b` |
 | Security audit, CVE, OWASP, SAST, PII, prompt-injection, compliance | NVIDIA Security |
+| Cross-vendor model pick / GPT-5.3-Codex code / Gemini 3 Pro long-context | Copilot CLI (`copilot_chat`). **Skip when**: trivial task Sonnet/Haiku can handle; user not opted into premium-request spend; task is read-only and free-tier executors suffice. Each call costs 1 premium request. |
 | Stuck / failing tests / adversarial review / pre-merge verify | Codex |
 | Independent subtasks (≥2) | Parallel `Agent` calls in ONE message |
 
