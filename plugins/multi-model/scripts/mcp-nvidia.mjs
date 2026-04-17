@@ -64,12 +64,8 @@ const NVIDIA_MODELS = [
     thinking: true,
   },
   {
-    id: "deepseek-ai/deepseek-r1",
-    alias: "deepseek-r1",
-    strengths: "Extended chain-of-thought reasoning",
-    thinking: true,
-  },
-  {
+    // NOTE: llama405b may return 404 "not found for account" on some NVIDIA API keys
+    // (not provisioned for all tiers). Leave alias in for keys that have access.
     id: "meta/llama-3.1-405b-instruct",
     alias: "llama405b",
     strengths: "Meta Llama 405B — general purpose, large context",
@@ -153,7 +149,7 @@ server.tool(
   [
     "Chat with a NVIDIA NIM developer model. OpenAI-compatible API.",
     "Models: nemotron-ultra (best reasoning), nemotron-super (balanced), gemma4 (multimodal+thinking),",
-    "deepseek-r1 (chain-of-thought), llama405b (large general), mistral-large (multilingual).",
+    "llama405b (large general), mistral-large (multilingual).",
     "Delegate to NVIDIA when: need frontier-quality outside Anthropic, code generation at scale,",
     "multimodal vision tasks, or deep reasoning with thinking mode.",
   ].join(" "),
@@ -162,7 +158,7 @@ server.tool(
       .string()
       .optional()
       .describe(
-        "Model ID or alias. Aliases: qwen3-coder, devstral, kimi-k2-coder, deepseek-coder, nemotron-ultra, nemotron-super, gemma4, deepseek-r1, llama405b, mistral-large, granite-guardian, shieldgemma. Default: nemotron-ultra."
+        "Model ID or alias. Aliases: qwen3-coder, devstral, kimi-k2-coder, deepseek-coder, nemotron-ultra, nemotron-super, gemma4, llama405b, mistral-large, granite-guardian, shieldgemma. Default: nemotron-ultra."
       ),
     messages: z
       .array(
@@ -175,7 +171,7 @@ server.tool(
     thinking: z
       .boolean()
       .optional()
-      .describe("Enable extended thinking/CoT (supported by gemma4, deepseek-r1). Default: false."),
+      .describe("Enable extended thinking/CoT (supported by gemma4). Default: false."),
     max_tokens: z.number().optional().describe("Max tokens in response. Default: 4096."),
   },
   async ({ model, messages, thinking = false, max_tokens = 4096 }) => {

@@ -23,7 +23,7 @@ Route general-purpose, coding, reasoning, and multimodal tasks to NVIDIA NIM.
 | `nemotron-ultra` | `nvidia/llama-3.1-nemotron-ultra-253b-v1` | flagship reasoner | no | Best reasoning + coding + instruction following. |
 | `nemotron-super` | `nvidia/llama-3.3-nemotron-super-49b-v1` | balanced | no | Speed/quality tradeoff, strong coding. |
 | `gemma4` | `google/gemma-4-31b-it` | multimodal | **yes** | Vision + thinking mode. |
-| `deepseek-r1` | `deepseek-ai/deepseek-r1` | CoT reasoner | **yes** | Extended chain-of-thought, hard problems. |
+| ~~`deepseek-r1`~~ | ~~`deepseek-ai/deepseek-r1`~~ | ~~CoT reasoner~~ | — | **EOL 2026-01-26 (410 Gone). Use `nemotron-ultra` or `kimi-k2-thinking:cloud` for deep reasoning.** |
 | `llama405b` | `meta/llama-3.1-405b-instruct` | generalist | no | Large general purpose, big context. |
 | `mistral-large` | `mistralai/mistral-large-2-instruct` | multilingual | no | Multilingual tasks, coding. |
 | `granite-guardian` | `ibm/granite-guardian-3_0-8b` | risk classifier | no | Bias/harm/hallucination/jailbreak scoring. |
@@ -32,7 +32,7 @@ Route general-purpose, coding, reasoning, and multimodal tasks to NVIDIA NIM.
 ## Decision rules
 
 - **Code tasks** → `qwen3-coder` (default). Very large repo? `devstral` or `kimi-k2-coder`.
-- **Pure reasoning / planning** → `nemotron-ultra` (no CoT) or `deepseek-r1` with `thinking: true` (verbose CoT).
+- **Pure reasoning / planning** → `nemotron-ultra`. For verbose CoT use `kimi-k2-thinking:cloud` (Ollama) — `deepseek-r1` EOL 2026-01-26.
 - **Vision / image input** → `gemma4` with `thinking: true`.
 - **Balanced latency** → `nemotron-super`.
 - **Safety/risk scoring** → `granite-guardian` or `shieldgemma`. For deep audit workflow, prefer the `nvidia-security-mcp` skill instead.
@@ -51,7 +51,7 @@ mcp__nvidia-nim__nvidia_chat({
 })
 ```
 
-Enable `thinking: true` only for `gemma4` and `deepseek-r1` — other models ignore it. Reasoning returned wrapped in `<thinking>…</thinking>`; show separately from answer.
+Enable `thinking: true` only for `gemma4` — other active models ignore it. (`deepseek-r1` EOL 2026-01-26.) Reasoning returned wrapped in `<thinking>…</thinking>`; show separately from answer.
 
 ## Orchestration pattern
 

@@ -24,6 +24,15 @@
         "MCP_GLOBAL_MODULES": "C:\\Users\\ranja\\AppData\\Roaming\\npm\\node_modules"
       }
     },
+    "copilot": {
+      "command": "node",
+      "args": ["./plugins/multi-model/scripts/mcp-copilot.mjs"],
+      "env": {
+        "GH_TOKEN": "${GH_TOKEN}",
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}",
+        "MCP_GLOBAL_MODULES": "C:\\Users\\ranja\\AppData\\Roaming\\npm\\node_modules"
+      }
+    },
     "playwright": {
       "command": "npx",
       "args": ["-y", "@playwright/mcp@latest"]

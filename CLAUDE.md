@@ -12,9 +12,13 @@
   - `nemotron-ultra` (`nvidia/llama-3.1-nemotron-ultra-253b-v1`) — NVIDIA flagship, best reasoning and coding
   - `nemotron-super` (`nvidia/llama-3.3-nemotron-super-49b-v1`) — balanced speed + quality
   - `gemma4` (`google/gemma-4-31b-it`) — multimodal vision, thinking mode
-  - `deepseek-r1` (`deepseek-ai/deepseek-r1`) — extended chain-of-thought, hard reasoning
   - `llama405b` (`meta/llama-3.1-405b-instruct`) — large general purpose
+  - NOTE: `deepseek-r1` reached EOL 2026-01-26 (410 Gone). Use `nemotron-ultra` (NVIDIA) or `kimi-k2-thinking:cloud` (Ollama) for deep reasoning.
   - `mistral-large` (`mistralai/mistral-large-2-instruct`) — multilingual, coding
+- **Copilot CLI** — cross-vendor model picker via `mcp__copilot__copilot_chat` tool or `/multi-model:copilot` command (requires `GH_TOKEN` or `GITHUB_TOKEN`):
+  - `gpt-5.3-codex` — GPT-5.3-Codex, peer to Sonnet for code generation and editing
+  - `gemini-3-pro` — Gemini 3 Pro, long-context work and vision+language tasks
+  - `claude` — routes back to Claude through Copilot auth (cross-vendor compare)
 - **Codex** — reviewer, verifier, and executor for code-focused work via the codex plugin:
   - `/codex:review` or `/codex:adversarial-review` — review any diff or branch before merging; use after every non-trivial change
   - `/codex:rescue` — delegate bug investigation, failing tests, or complex fixes to Codex as an independent executor

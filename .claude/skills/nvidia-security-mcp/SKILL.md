@@ -16,8 +16,8 @@ Route **defensive** security and audit workloads to purpose-tuned NIM models. Lo
 
 | Alias | Role | Use when |
 |---|---|---|
-| `deepseek-r1` (default) | audit-reasoner, CoT | Root-cause, threat modeling, exploit reasoning, code-audit narratives. Set `thinking: true`. |
-| `nemotron-ultra` | audit-reasoner | Vulnerability analysis, secure-code review, compliance audits without verbose CoT. |
+| ~~`deepseek-r1`~~ | ~~audit-reasoner, CoT~~ | **EOL 2026-01-26 (410 Gone).** Use `nemotron-ultra` or `kimi-k2-thinking:cloud` for audit CoT. |
+| `nemotron-ultra` (default) | audit-reasoner | Vulnerability analysis, secure-code review, compliance audits. |
 | `qwen3-coder` | code-auditor | SAST-style review, taint analysis, fix suggestions in diff form. |
 | `devstral` | code-auditor | Repo-scale secure-code + dependency + IaC audits. |
 | `llama-guard` | safety-classifier | Multimodal (text+image) jailbreak / prompt-injection / policy screen. |
@@ -29,7 +29,7 @@ Route **defensive** security and audit workloads to purpose-tuned NIM models. Lo
 
 ## Decision rules
 
-- **Root-cause / threat model / exploit chain reasoning** → `deepseek-r1` + `thinking: true`.
+- **Root-cause / threat model / exploit chain reasoning** → `nemotron-ultra` (active). For verbose CoT use `kimi-k2-thinking:cloud` (Ollama). (`deepseek-r1` EOL 2026-01-26.)
 - **Diff review for CVEs/OWASP** → `qwen3-coder` (small scope) or `devstral` (repo-scale).
 - **Classify a single user prompt for jailbreak/injection** → `llama-guard` or `nemotron-safety`.
 - **Need explanation with the label** → `nemotron-safety-reason`.
@@ -46,7 +46,7 @@ Route **defensive** security and audit workloads to purpose-tuned NIM models. Lo
 
 **Audit workflow**
 1. `qwen3-coder` or `devstral` → produce finding list with line refs.
-2. `deepseek-r1` (thinking on) → reason about severity + exploit path.
+2. `nemotron-ultra` → reason about severity + exploit path. (For verbose CoT, use `kimi-k2-thinking:cloud` via Ollama — `deepseek-r1` EOL 2026-01-26.)
 3. `nemotron-ultra` → synthesize executive summary.
 4. Opus → final review & prioritization.
 
@@ -54,12 +54,11 @@ Route **defensive** security and audit workloads to purpose-tuned NIM models. Lo
 
 ```
 mcp__nvidia-security__nvidia_security_chat({
-  model: "deepseek-r1",
+  model: "nemotron-ultra",
   messages: [
     { role: "system", content: "Security auditor. Cite file:line. Output JSON findings." },
     { role: "user", content: "<diff>" }
   ],
-  thinking: true,
   max_tokens: 8192
 })
 ```
