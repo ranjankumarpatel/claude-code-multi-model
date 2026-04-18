@@ -47,7 +47,19 @@ Restart Claude Code → plugin auto-loads with its 3 MCP servers. Verify:
 claude mcp list        # expect plugin:multi-model:{ollama,nvidia-nim,nvidia-security}
 ```
 
-Updates: `claude plugin update multi-model@claude-code-multi-model`.
+**Update after plugin code changes:**
+
+```bash
+claude plugin marketplace update ranjankumarpatel/claude-code-multi-model
+```
+
+Or force reinstall:
+
+```bash
+claude plugin remove multi-model
+claude plugin marketplace add ranjankumarpatel/claude-code-multi-model
+claude plugin install multi-model@claude-code-multi-model
+```
 
 ### Option B — local clone (development)
 
