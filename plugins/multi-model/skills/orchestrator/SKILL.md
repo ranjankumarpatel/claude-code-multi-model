@@ -7,6 +7,16 @@ description: Opus auto-routes every task to the right model without asking. Trig
 
 **Rule**: Opus decides the model per task from the request signal. Never ask the user which model to use. Never default to "ask first". Route silently, report briefly.
 
+## Knowledge sources
+
+- **`MODELS.md`** (plugin root) — full catalog of all 41 models across 4 MCPs. Read when routing a non-obvious task.
+- **Per-MCP deep-dive skills** — invoke when the rubric points into a specific MCP:
+  - `multi-model-ollama-models` — 15 Ollama cloud models
+  - `multi-model-nvidia-nim-models` — 11 NIM frontier models
+  - `multi-model-nvidia-security-models` — 9 security / audit / guardrail models
+  - `multi-model-copilot-models` — 6 Copilot cross-vendor (1 premium req / call)
+- **`multi-model-advisor`** — switch to advisory mode when the user asks *about* models instead of asking for work.
+
 ## Roles
 - **Opus** — plan, route, synthesize. Never edits files / runs shell directly.
 - **Sonnet / Haiku** — primary executors via `Agent` tool.

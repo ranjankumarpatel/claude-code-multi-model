@@ -3,12 +3,8 @@
  * NVIDIA NIM MCP Server for Claude Code
  * OpenAI-compatible API via https://integrate.api.nvidia.com/v1
  */
-import { createRequire } from "node:module";
-const require = createRequire(
-  process.env.MCP_GLOBAL_MODULES
-    ? `file:///${process.env.MCP_GLOBAL_MODULES.replaceAll("\\", "/")}/`
-    : import.meta.url
-);
+import { createRequireFromLocalFirst, retry, logCall } from "./lib/common.mjs";
+const require = createRequireFromLocalFirst(import.meta.url);
 const { McpServer } = require("@modelcontextprotocol/sdk/server/mcp.js");
 const { StdioServerTransport } = require("@modelcontextprotocol/sdk/server/stdio.js");
 const { z } = require("zod");
@@ -83,12 +79,7 @@ const NVIDIA_MODELS = [
     strengths: "Risk/guardrail classifier — bias, harm, hallucination, jailbreak, function-call risk",
     thinking: false,
   },
-  {
-    id: "google/shieldgemma-9b",
-    alias: "shieldgemma",
-    strengths: "Policy-driven safety classifier — harassment, dangerous content, hate",
-    thinking: false,
-  },
+  // google/shieldgemma-9b reached EOL 2026-04-15 (410 Gone). Removed. Use llama-guard or nemotron-safety via nvidia-security MCP.
 ];
 
 const ALIASES = Object.fromEntries(NVIDIA_MODELS.map((m) => [m.alias, m.id]));
@@ -123,7 +114,9 @@ async function nimChat({ model, messages, thinking = false, maxTokens = 4096 }) 
 
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`NVIDIA NIM error ${res.status}: ${text}`);
+    const err = new Error(`NVIDIA NIM error ${res.status}: ${text}`);
+    err.status = res.status;
+    throw err;
   }
   return res.json();
 }
@@ -158,7 +151,7 @@ server.tool(
       .string()
       .optional()
       .describe(
-        "Model ID or alias. Aliases: qwen3-coder, devstral, kimi-k2-coder, deepseek-coder, nemotron-ultra, nemotron-super, gemma4, llama405b, mistral-large, granite-guardian, shieldgemma. Default: nemotron-ultra."
+        "Model ID or alias. Aliases: qwen3-coder, devstral, kimi-k2-coder, deepseek-coder, nemotron-ultra, nemotron-super, gemma4, llama405b, mistral-large, granite-guardian. Default: nemotron-ultra."
       ),
     messages: z
       .array(
@@ -176,14 +169,38 @@ server.tool(
   },
   async ({ model, messages, thinking = false, max_tokens = 4096 }) => {
     const resolvedModel = resolveModel(model);
-    const data = await nimChat({ model: resolvedModel, messages, thinking, maxTokens: max_tokens });
-    const choice = data.choices?.[0];
-    const reply = choice?.message?.content ?? "";
-    const reasoningContent = choice?.message?.reasoning_content;
-    const out = reasoningContent
-      ? `<thinking>\n${reasoningContent}\n</thinking>\n\n${reply}`
-      : reply;
-    return { content: [{ type: "text", text: out }] };
+    const startedAt = Date.now();
+    let ok = false;
+    let lastErr;
+    try {
+      const data = await retry(() =>
+        nimChat({ model: resolvedModel, messages, thinking, maxTokens: max_tokens })
+      );
+      const choice = data.choices?.[0];
+      const reply = choice?.message?.content ?? "";
+      const reasoningContent = choice?.message?.reasoning_content;
+      const out = reasoningContent
+        ? `<thinking>\n${reasoningContent}\n</thinking>\n\n${reply}`
+        : reply;
+      ok = true;
+      logCall({
+        mcp: "nvidia-nim", tool: "nvidia_chat", model: resolvedModel,
+        startedAt, endedAt: Date.now(), ok,
+        tokensIn: data.usage?.prompt_tokens ?? null,
+        tokensOut: data.usage?.completion_tokens ?? null,
+      });
+      return { content: [{ type: "text", text: out }] };
+    } catch (err) {
+      lastErr = err;
+      throw err;
+    } finally {
+      if (!ok) {
+        logCall({
+          mcp: "nvidia-nim", tool: "nvidia_chat", model: resolvedModel,
+          startedAt, endedAt: Date.now(), ok: false, error: lastErr,
+        });
+      }
+    }
   }
 );
 

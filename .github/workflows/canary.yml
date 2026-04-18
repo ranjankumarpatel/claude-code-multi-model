@@ -1,0 +1,61 @@
+name: Multi-model canary
+
+on:
+  schedule:
+    - cron: '0 13 * * *'   # 13:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    # This job is intentionally red until scripts/canary.mjs wires real model
+    # probes (Phase 2). To temporarily unblock CI during Phase 2 work, set
+    # CANARY_STUB_OK=1 as a repo secret and add it here — but only knowingly.
+    env:
+      # Pulled from repo secrets. Missing secrets yield empty strings; the
+      # canary script SKIPs the corresponding MCP rather than failing CI.
+      NVIDIA_API_KEY: ${{ secrets.NVIDIA_API_KEY }}
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      OLLAMA_HOST: ${{ secrets.OLLAMA_HOST }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install plugin deps
+        working-directory: plugins/multi-model
+        run: |
+          if [ -f package.json ]; then
+            npm install --no-audit --no-fund
+          else
+            echo "no package.json yet — skipping npm install"
+          fi
+
+      - name: Run canary
+        id: canary
+        env:
+          # Phase 4: turn on real model probes. Green IFF creds are configured
+          # AND the corresponding MCPs respond. Missing creds → SKIP (not fail).
+          CANARY_LIVE: "1"
+        run: |
+          node plugins/multi-model/scripts/canary.mjs 2>&1 | tee canary.log
+        continue-on-error: false
+
+      - name: Upload canary log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: canary-log-node${{ matrix.node-version }}
+          path: canary.log
+          retention-days: 14

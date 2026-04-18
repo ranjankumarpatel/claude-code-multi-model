@@ -27,6 +27,7 @@ Or reference this repo directly as a marketplace source.
 | `GH_TOKEN` or `GITHUB_TOKEN` | Required for GitHub Copilot CLI; PAT with `Copilot Requests` scope |
 | `npm install -g @github/copilot` | Required for Copilot CLI integration |
 | Codex plugin installed | Required for `/multi-model:codex` commands |
+| `npm install` inside the plugin | Installs `@modelcontextprotocol/sdk`, `zod`, `js-yaml` into local `node_modules`. No global install required. |
 
 ## Commands
 
@@ -71,61 +72,17 @@ Four MCP servers are bundled and auto-loaded via `plugin.json`. No project-level
 | `NVIDIA_API_KEY` | For NVIDIA commands | API key from [build.nvidia.com](https://build.nvidia.com) |
 | `OLLAMA_HOST` | Optional | Ollama server URL. Default: `http://localhost:11434` |
 | `GH_TOKEN` / `GITHUB_TOKEN` | For Copilot command | GitHub PAT with `Copilot Requests` scope |
-| `MCP_GLOBAL_MODULES` | Optional | Path to global `node_modules` for MCP SDK resolution |
+| `MCP_GLOBAL_MODULES` | Optional (legacy) | Fallback path to a global `node_modules`. Only used if the plugin-local `node_modules` is missing. Prefer running `npm install` inside the plugin instead. |
 
-### Ollama cloud models
+### Models
 
-| Alias / Model | Strengths |
-|---|---|
-| `gemma4:31b-cloud` (default) | Coding, reasoning, multimodal — peer to Sonnet |
-| `kimi-k2.5:cloud` (`kimi`) | Vision+language, agentic, long-context |
-| `kimi-k2-thinking:cloud` (`thinking`) | Deep chain-of-thought reasoning |
-| `glm-5.1:cloud` | Agentic coding, SWE-Bench SOTA |
-| `qwen3-coder:480b-cloud` | Very large context coding tasks |
-| `devstral-2:123b-cloud` | Repo-level edits, multi-file refactors |
-| `kimi-k2:1t-cloud` | Long-context agentic work |
-| `glm-4.6:cloud` | Advanced coding and reasoning |
-| `qwen3-coder-next:cloud` | Next-gen long-context coding |
-| `devstral-small-2:24b-cloud` | Lightweight code edits |
-| `minimax-m2:cloud` | Multimodal agentic tasks |
-| `deepseek-v3.2:cloud` | Advanced reasoning and coding |
-| `gpt-oss:120b-cloud` | Large open-source alternative |
-| `nemotron-3-super:cloud` | NVIDIA reasoning model |
-| `mistral-large-3:675b-cloud` | Very large multilingual + vision |
+~40 models across 4 providers (Ollama cloud, NVIDIA NIM, NVIDIA Security, GitHub Copilot CLI). See [`MODELS.md`](MODELS.md) for the full catalog, per-model notes, and the recommended picks per lane (agentic-coding, deep-reasoning, multimodal, long-context, bulk, security-audit, pii, safety-guard, cross-vendor).
 
-### NVIDIA NIM models
+The catalog is generated from [`models.yaml`](models.yaml). To regenerate:
 
-| Alias | Model ID | Best for |
-|---|---|---|
-| `nemotron-ultra` | `nvidia/llama-3.1-nemotron-ultra-253b-v1` | Best reasoning + coding, flagship (default) |
-| `nemotron-super` | `nvidia/llama-3.3-nemotron-super-49b-v1` | Balanced speed + quality |
-| `gemma4` | `google/gemma-4-31b-it` | Multimodal vision, thinking mode |
-| `llama405b` | `meta/llama-3.1-405b-instruct` | Large general purpose |
-| `mistral-large` | `mistralai/mistral-large-2-instruct` | Multilingual, coding |
-
-Note: `deepseek-r1` reached EOL 2026-01-26 (410 Gone). Use `nemotron-ultra` or `kimi-k2-thinking:cloud` for deep reasoning.
-
-### NVIDIA Security models
-
-| Alias | Role |
-|---|---|
-| `nemotron-ultra` (default) | Vulnerability analysis, secure-code review, compliance audits |
-| `llama-guard` | Jailbreak / prompt-injection / policy screening |
-| `nemotron-safety` | LLM I/O moderation, harmful content gating |
-| `nemotron-safety-reason` | Safety classification with justification |
-| `granite-guardian` | Bias, harm, hallucination, jailbreak, function-call risk |
-| `shieldgemma` | Content-policy moderation |
-| `gliner-pii` | PII extraction / redaction (GDPR/HIPAA pre-processing) |
-
-### GitHub Copilot models
-
-| Model | Strengths |
-|---|---|
-| `claude-sonnet-4.6` (default) | Coding + reasoning |
-| `claude-opus-4.6` | Planning, architecture, complex reasoning |
-| `claude-haiku-4.5` | Fast coding, bulk tasks |
-| `gpt-5.3-codex` | Code generation and completion |
-| `gemini-3-pro` | Long-context, vision+language |
-| `gpt-5` | General-purpose frontier, reasoning, vision |
+```bash
+cd plugins/multi-model
+npm run gen-docs
+```
 
 Each Copilot prompt costs 1 premium request from your monthly allocation.
