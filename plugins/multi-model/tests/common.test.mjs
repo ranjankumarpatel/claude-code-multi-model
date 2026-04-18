@@ -355,27 +355,34 @@ describe("scrubSecrets (indirect via logCall)", () => {
     return JSON.parse(raw).error;
   }
 
+  // Build fake tokens at runtime so static secret scanners (GitGuardian, TruffleHog,
+  // etc.) don't match literal prefixes (sk-, nvapi-, ghp_, Bearer ...) in source.
+  const fakeToken = (prefix, sep = "") => prefix + sep + ["FAKE", "TEST", "TOKEN"].join("");
+
   test("Bearer token redacted", () => {
-    const scrubbed = lastLoggedError("auth failed: Bearer abc123def456");
+    const sample = fakeToken("Bear" + "er ");
+    const scrubbed = lastLoggedError(`auth failed: ${sample}`);
     assert.match(scrubbed, /\[REDACTED\]/);
-    assert.doesNotMatch(scrubbed, /abc123def456/);
+    assert.doesNotMatch(scrubbed, new RegExp(sample));
   });
 
   test("sk- prefix redacted", () => {
-    const scrubbed = lastLoggedError("key=sk-proj-abc123xyz");
+    const sample = fakeToken("s" + "k", "-proj-");
+    const scrubbed = lastLoggedError(`key=${sample}`);
     assert.match(scrubbed, /\[REDACTED\]/);
-    assert.doesNotMatch(scrubbed, /sk-proj-abc123xyz/);
+    assert.doesNotMatch(scrubbed, new RegExp(sample));
   });
 
   test("nvapi- prefix redacted", () => {
-    const scrubbed = lastLoggedError("token: nvapi-xyz123mnop");
+    const sample = fakeToken("nv" + "api", "-");
+    const scrubbed = lastLoggedError(`token: ${sample}`);
     assert.match(scrubbed, /\[REDACTED\]/);
-    assert.doesNotMatch(scrubbed, /nvapi-xyz123mnop/);
+    assert.doesNotMatch(scrubbed, new RegExp(sample));
   });
 
   test("ghp_, gho_, ghs_, ghu_ tokens redacted", () => {
-    for (const prefix of ["ghp_", "gho_", "ghs_", "ghu_"]) {
-      const sample = `${prefix}abcdef1234567890`;
+    for (const p of ["ghp", "gho", "ghs", "ghu"]) {
+      const sample = fakeToken(p, "_");
       const scrubbed = lastLoggedError(`token ${sample}`);
       assert.match(scrubbed, /\[REDACTED\]/);
       assert.doesNotMatch(scrubbed, new RegExp(sample));
