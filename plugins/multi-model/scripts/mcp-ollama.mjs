@@ -3,12 +3,8 @@
  * Ollama MCP Server for Claude Code
  * Supports both local Ollama models and Ollama cloud models.
  */
-import { createRequire } from "node:module";
-const require = createRequire(
-  process.env.MCP_GLOBAL_MODULES
-    ? `file:///${process.env.MCP_GLOBAL_MODULES.replaceAll("\\", "/")}/`
-    : import.meta.url
-);
+import { createRequireFromLocalFirst, retry, logCall } from "./lib/common.mjs";
+const require = createRequireFromLocalFirst(import.meta.url);
 const { McpServer } = require("@modelcontextprotocol/sdk/server/mcp.js");
 const { StdioServerTransport } = require("@modelcontextprotocol/sdk/server/stdio.js");
 const { z } = require("zod");
@@ -47,7 +43,9 @@ async function ollamaFetch(path, body) {
   });
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`Ollama error ${res.status}: ${text}`);
+    const err = new Error(`Ollama error ${res.status}: ${text}`);
+    err.status = res.status;
+    throw err;
   }
   return res.json();
 }
@@ -116,11 +114,37 @@ server.tool(
       .describe("Conversation messages"),
   },
   async ({ model, messages }) => {
-    const data = await ollamaFetch("/api/chat", { model, messages, stream: false });
-    const reply = data.message?.content ?? "";
-    const thinking = data.message?.thinking;
-    const out = thinking ? `<thinking>\n${thinking}\n</thinking>\n\n${reply}` : reply;
-    return { content: [{ type: "text", text: out }] };
+    const startedAt = Date.now();
+    let ok = false;
+    let lastErr;
+    try {
+      const data = await retry(() =>
+        ollamaFetch("/api/chat", { model, messages, stream: false })
+      );
+      const reply = data.message?.content ?? "";
+      const thinking = data.message?.thinking;
+      const out = thinking ? `<thinking>\n${thinking}\n</thinking>\n\n${reply}` : reply;
+      ok = true;
+      const usage = data.prompt_eval_count != null || data.eval_count != null
+        ? { in: data.prompt_eval_count ?? null, out: data.eval_count ?? null }
+        : { in: null, out: null };
+      logCall({
+        mcp: "ollama", tool: "ollama_chat", model,
+        startedAt, endedAt: Date.now(), ok,
+        tokensIn: usage.in, tokensOut: usage.out,
+      });
+      return { content: [{ type: "text", text: out }] };
+    } catch (err) {
+      lastErr = err;
+      throw err;
+    } finally {
+      if (!ok) {
+        logCall({
+          mcp: "ollama", tool: "ollama_chat", model,
+          startedAt, endedAt: Date.now(), ok: false, error: lastErr,
+        });
+      }
+    }
   }
 );
 

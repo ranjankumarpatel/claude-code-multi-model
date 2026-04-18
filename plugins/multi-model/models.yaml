@@ -1,0 +1,270 @@
+# Single source of truth for multi-model plugin catalog.
+# Changes here flow to MODELS.md via `node scripts/gen-docs.mjs`.
+# Keep entries grouped by MCP. Lanes used by `recommended:` must exist in the
+# `recommended_for` lists below, otherwise gen-docs will not highlight them.
+
+ollama:
+  - id: gemma4:31b-cloud
+    provider: Google
+    params: 31B
+    ctx: 256K
+    notes: Frontier-level, multimodal, coding+reasoning
+    recommended_for: [multimodal, agentic-coding]
+  - id: kimi-k2.5:cloud
+    provider: Moonshot
+    params: MoE
+    ctx: 256K
+    notes: Native multimodal, vision+language, agentic
+    recommended_for: [multimodal, agentic-coding, long-context]
+  - id: kimi-k2-thinking:cloud
+    provider: Moonshot
+    params: MoE
+    ctx: 256K
+    notes: Extended thinking / chain-of-thought
+    recommended_for: [deep-reasoning]
+  - id: deepseek-v3.2:cloud
+    provider: DeepSeek
+    params: MoE
+    ctx: 160K
+    notes: Efficient reasoning + agentic coding
+    recommended_for: [deep-reasoning, agentic-coding]
+  - id: devstral-2:123b-cloud
+    provider: Mistral
+    params: 123B
+    ctx: 256K
+    notes: Repo-level edits, tool calling, agentic
+    recommended_for: [agentic-coding, long-context]
+  - id: devstral-small-2:24b-cloud
+    provider: Mistral
+    params: 24B
+    ctx: 256K
+    notes: Lightweight agentic coding with tool use
+    recommended_for: [bulk]
+  - id: glm-4.6:cloud
+    provider: Z.ai
+    params: MoE
+    ctx: 198K
+    notes: Agentic + reasoning + coding
+    recommended_for: [agentic-coding]
+  - id: glm-5.1:cloud
+    provider: Z.ai
+    params: MoE
+    ctx: 198K
+    notes: Frontier agentic, SWE-Bench Pro SOTA
+    recommended_for: [agentic-coding]
+  - id: gpt-oss:120b-cloud
+    provider: OpenAI
+    params: 120B
+    ctx: 256K
+    notes: Open-weight reasoning + agentic
+    recommended_for: [deep-reasoning]
+  - id: kimi-k2:1t-cloud
+    provider: Moonshot
+    params: 1T
+    ctx: 256K
+    notes: MoE coding agent, tool calling
+    recommended_for: [agentic-coding, long-context]
+  - id: minimax-m2:cloud
+    provider: MiniMax
+    params: MoE
+    ctx: 200K
+    notes: High-efficiency coding + agentic
+    recommended_for: [agentic-coding]
+  - id: mistral-large-3:675b-cloud
+    provider: Mistral
+    params: 675B
+    ctx: 256K
+    notes: Multimodal MoE, vision+tools, production
+    recommended_for: [multimodal, long-context]
+  - id: nemotron-3-super:cloud
+    provider: NVIDIA
+    params: 120B
+    ctx: 128K
+    notes: NVIDIA 120B MoE agentic, strong tool use
+    recommended_for: [agentic-coding]
+  - id: qwen3-coder-next:cloud
+    provider: Alibaba
+    params: MoE
+    ctx: 256K
+    notes: Agentic coding, local-dev focus
+    recommended_for: [agentic-coding]
+  - id: qwen3-coder:480b-cloud
+    provider: Alibaba
+    params: 480B
+    ctx: 256K
+    notes: Long-context coding + agentic, 480B
+    recommended_for: [agentic-coding, long-context]
+
+nvidia_nim:
+  # NOTE: deepseek-r1 reached EOL 2026-01-26 (410 Gone).
+  # Use nemotron-ultra (NIM) or kimi-k2-thinking:cloud (Ollama) for deep reasoning.
+  - id: qwen3-coder
+    provider: qwen/qwen3-coder-480b-a35b-instruct
+    params: 480B MoE
+    ctx: long
+    notes: Best agentic coding — 480B MoE, repo-level edits. Default for code
+    thinking: false
+    recommended_for: [agentic-coding]
+  - id: devstral
+    provider: mistralai/devstral-2-123b-instruct-2512
+    params: 123B
+    ctx: long
+    notes: Heavy SWE agent, repo-scale refactor
+    thinking: false
+    recommended_for: [agentic-coding]
+  - id: kimi-k2-coder
+    provider: moonshotai/kimi-k2-instruct-0905
+    params: MoE
+    ctx: long
+    notes: Long-ctx coding + agentic tool calling
+    thinking: false
+    recommended_for: [agentic-coding, long-context]
+  - id: deepseek-coder
+    provider: deepseek-ai/deepseek-v3_1-terminus
+    params: MoE
+    ctx: long
+    notes: Coding + tool-calling, math/logic
+    thinking: false
+    recommended_for: [agentic-coding, deep-reasoning]
+  - id: nemotron-ultra
+    provider: nvidia/llama-3.1-nemotron-ultra-253b-v1
+    params: 253B
+    ctx: long
+    notes: NVIDIA flagship — best reasoning, coding
+    thinking: false
+    recommended_for: [deep-reasoning, agentic-coding]
+  - id: nemotron-super
+    provider: nvidia/llama-3.3-nemotron-super-49b-v1
+    params: 49B
+    ctx: long
+    notes: Balanced reasoning + speed
+    thinking: false
+    recommended_for: [deep-reasoning]
+  - id: gemma4
+    provider: google/gemma-4-31b-it
+    params: 31B
+    ctx: long
+    notes: Multimodal (vision) + thinking mode
+    thinking: true
+    recommended_for: [multimodal, deep-reasoning]
+  - id: llama405b
+    provider: meta/llama-3.1-405b-instruct
+    params: 405B
+    ctx: long
+    notes: Meta 405B general purpose, large ctx (may 404 per-tier)
+    thinking: false
+    recommended_for: [long-context]
+  - id: mistral-large
+    provider: mistralai/mistral-large-2-instruct
+    params: large
+    ctx: long
+    notes: Multilingual, coding, instruction
+    thinking: false
+    recommended_for: []
+  - id: granite-guardian
+    provider: ibm/granite-guardian-3_0-8b
+    params: 8B
+    ctx: short
+    notes: "Risk/guardrail: bias, harm, hallucination, jailbreak"
+    thinking: false
+    recommended_for: [safety-guard]
+
+nvidia_security:
+  # deepseek-r1 removed (EOL 2026-01-26 — 410 Gone). nemotron-ultra takes its slot.
+  # shieldgemma (google/shieldgemma-9b) EOL 2026-04-15 — removed. Use llama-guard or nemotron-safety.
+  - id: nemotron-ultra
+    provider: nvidia/llama-3.1-nemotron-ultra-253b-v1
+    role: audit-reasoner
+    notes: Vuln analysis, secure-code review, compliance audits
+    recommended_for: [security-audit, deep-reasoning]
+  - id: qwen3-coder
+    provider: qwen/qwen3-coder-480b-a35b-instruct
+    role: code-auditor
+    notes: SAST-style review, taint analysis, fix suggestions
+    recommended_for: [security-audit]
+  - id: devstral
+    provider: mistralai/devstral-2-123b-instruct-2512
+    role: code-auditor
+    notes: Repo-scale secure review, dep / IaC audits
+    recommended_for: [security-audit]
+  - id: llama-guard
+    provider: meta/llama-guard-4-12b
+    role: safety-classifier
+    notes: Multimodal (text+image) prompt-injection/jailbreak
+    recommended_for: [safety-guard]
+  - id: nemotron-safety
+    provider: nvidia/llama-3_1-nemotron-safety-guard-8b-v3
+    role: safety-classifier
+    notes: LLM I/O moderation, guardrails
+    recommended_for: [safety-guard]
+  - id: nemotron-safety-reason
+    provider: nvidia/nemotron-content-safety-reasoning-4b
+    role: safety-classifier
+    notes: Reasoning-based safety w/ justification (NeMo)
+    recommended_for: [safety-guard]
+  - id: granite-guardian
+    provider: ibm/granite-guardian-3_0-8b
+    role: risk-classifier
+    notes: "Enterprise risk: bias/harm/hallucination/jailbreak"
+    recommended_for: [safety-guard]
+  - id: gliner-pii
+    provider: nvidia/gliner-pii
+    role: pii-detector
+    notes: PII detect/redact — GDPR/HIPAA pre-processing
+    recommended_for: [pii]
+
+copilot:
+  - id: claude-opus-4.6
+    provider: Anthropic
+    notes: Planning, architecture, complex reasoning
+    recommended_for: [cross-vendor, deep-reasoning]
+  - id: claude-sonnet-4.6
+    provider: Anthropic
+    notes: Balanced coding + reasoning
+    recommended_for: [cross-vendor]
+  - id: claude-haiku-4.5
+    provider: Anthropic
+    notes: Fast, lightweight
+    recommended_for: [cross-vendor, bulk]
+  - id: gpt-5.3-codex
+    provider: OpenAI
+    notes: Code generation + completion
+    recommended_for: [cross-vendor, agentic-coding]
+  - id: gemini-3-pro
+    provider: Google
+    notes: Multimodal, long-ctx
+    recommended_for: [cross-vendor, multimodal, long-context]
+  - id: gpt-5
+    provider: OpenAI
+    notes: General-purpose frontier
+    recommended_for: [cross-vendor]
+
+# Curated top picks per lane. One or two entries each — used by advisor skill
+# and surfaced in MODELS.md. Keep this list tight; it is opinion, not inventory.
+recommended:
+  agentic-coding:
+    - { mcp: nvidia_nim, model: qwen3-coder }
+    - { mcp: ollama, model: glm-5.1:cloud }
+  deep-reasoning:
+    - { mcp: nvidia_nim, model: nemotron-ultra }
+    - { mcp: ollama, model: kimi-k2-thinking:cloud }
+  multimodal:
+    - { mcp: nvidia_nim, model: gemma4 }
+    - { mcp: copilot, model: gemini-3-pro }
+  long-context:
+    - { mcp: copilot, model: gemini-3-pro }
+    - { mcp: ollama, model: qwen3-coder:480b-cloud }
+  bulk:
+    - { mcp: ollama, model: devstral-small-2:24b-cloud }
+    - { mcp: copilot, model: claude-haiku-4.5 }
+  security-audit:
+    - { mcp: nvidia_security, model: nemotron-ultra }
+    - { mcp: nvidia_security, model: qwen3-coder }
+  pii:
+    - { mcp: nvidia_security, model: gliner-pii }
+  safety-guard:
+    - { mcp: nvidia_security, model: llama-guard }
+    - { mcp: nvidia_security, model: nemotron-safety }
+  cross-vendor:
+    - { mcp: copilot, model: gpt-5.3-codex }
+    - { mcp: copilot, model: gemini-3-pro }

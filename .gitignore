@@ -208,3 +208,5 @@ __marimo__/
 .playwright-mcp/
 node_modules/
 .claude/settings.local.json
+plugins/multi-model/evals/results/*.jsonl
+plugins/multi-model/evals/tasks/*.json

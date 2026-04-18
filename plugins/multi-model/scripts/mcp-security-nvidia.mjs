@@ -4,12 +4,13 @@
  * Curated models for cybersecurity, code audit, safety moderation, PII, guardrails.
  * OpenAI-compatible API via https://integrate.api.nvidia.com/v1
  */
-import { createRequire } from "node:module";
-const require = createRequire(
-  process.env.MCP_GLOBAL_MODULES
-    ? `file:///${process.env.MCP_GLOBAL_MODULES.replaceAll("\\", "/")}/`
-    : import.meta.url
-);
+import {
+  createRequireFromLocalFirst,
+  retry,
+  logCall,
+  safetySystemPrompt,
+} from "./lib/common.mjs";
+const require = createRequireFromLocalFirst(import.meta.url);
 const { McpServer } = require("@modelcontextprotocol/sdk/server/mcp.js");
 const { StdioServerTransport } = require("@modelcontextprotocol/sdk/server/stdio.js");
 const { z } = require("zod");
@@ -72,13 +73,7 @@ const SECURITY_MODELS = [
     strengths: "Enterprise risk classifier — bias, harm, hallucination, jailbreak, function-call risk",
     thinking: false,
   },
-  {
-    id: "google/shieldgemma-9b",
-    alias: "shieldgemma",
-    role: "risk-classifier",
-    strengths: "Policy-driven safety classifier — harassment, dangerous content, sexual, hate",
-    thinking: false,
-  },
+  // google/shieldgemma-9b reached EOL 2026-04-15 (410 Gone). Removed. Use llama-guard or nemotron-safety.
   {
     id: "nvidia/gliner-pii",
     alias: "gliner-pii",
@@ -89,10 +84,15 @@ const SECURITY_MODELS = [
 ];
 
 const ALIASES = Object.fromEntries(SECURITY_MODELS.map((m) => [m.alias, m.id]));
+const MODELS_BY_ID = Object.fromEntries(SECURITY_MODELS.map((m) => [m.id, m]));
 
 function resolveModel(raw) {
   if (!raw) return SECURITY_MODELS[0].id;
   return ALIASES[raw.toLowerCase()] ?? raw;
+}
+
+function roleForModelId(id) {
+  return MODELS_BY_ID[id]?.role ?? "audit-reasoner";
 }
 
 async function nimChat({ model, messages, thinking = false, maxTokens = 4096 }) {
@@ -120,7 +120,9 @@ async function nimChat({ model, messages, thinking = false, maxTokens = 4096 }) 
 
   if (!res.ok) {
     const text = await res.text();
-    throw new Error(`NVIDIA NIM error ${res.status}: ${text}`);
+    const err = new Error(`NVIDIA NIM error ${res.status}: ${text}`);
+    err.status = res.status;
+    throw err;
   }
   return res.json();
 }
@@ -146,7 +148,7 @@ server.tool(
     "Chat with a NVIDIA NIM security/audit model. OpenAI-compatible API.",
     "Roles: audit-reasoner (nemotron-ultra), code-auditor (qwen3-coder, devstral),",
     "safety-classifier (llama-guard, nemotron-safety, nemotron-safety-reason),",
-    "risk-classifier (granite-guardian, shieldgemma), pii-detector (gliner-pii).",
+    "risk-classifier (granite-guardian), pii-detector (gliner-pii).",
     "Use for: authorized pentest reasoning, code-review for CVEs/OWASP, SAST triage, threat modeling,",
     "prompt-injection detection, LLM output moderation, PII scrubbing, compliance audits.",
     "Default: nemotron-ultra (flagship reasoner). Temperature set low (0.2) for auditable, deterministic output.",
@@ -156,7 +158,7 @@ server.tool(
       .string()
       .optional()
       .describe(
-        "Model ID or alias. Aliases: nemotron-ultra, qwen3-coder, devstral, llama-guard, nemotron-safety, nemotron-safety-reason, granite-guardian, shieldgemma, gliner-pii. Default: nemotron-ultra."
+        "Model ID or alias. Aliases: nemotron-ultra, qwen3-coder, devstral, llama-guard, nemotron-safety, nemotron-safety-reason, granite-guardian, gliner-pii. Default: nemotron-ultra."
       ),
     messages: z
       .array(
@@ -174,14 +176,56 @@ server.tool(
   },
   async ({ model, messages, thinking = false, max_tokens = 4096 }) => {
     const resolvedModel = resolveModel(model);
-    const data = await nimChat({ model: resolvedModel, messages, thinking, maxTokens: max_tokens });
-    const choice = data.choices?.[0];
-    const reply = choice?.message?.content ?? "";
-    const reasoningContent = choice?.message?.reasoning_content;
-    const out = reasoningContent
-      ? `<thinking>\n${reasoningContent}\n</thinking>\n\n${reply}`
-      : reply;
-    return { content: [{ type: "text", text: out }] };
+    const role = roleForModelId(resolvedModel);
+
+    // Prepend a role-specific system prompt if the caller didn't supply one.
+    let effectiveMessages = messages;
+    const hasSystem = Array.isArray(messages)
+      && messages.some((m) => m && m.role === "system");
+    if (!hasSystem) {
+      effectiveMessages = [
+        { role: "system", content: safetySystemPrompt(role) },
+        ...(messages ?? []),
+      ];
+    }
+
+    const startedAt = Date.now();
+    let ok = false;
+    let lastErr;
+    try {
+      const data = await retry(() =>
+        nimChat({
+          model: resolvedModel,
+          messages: effectiveMessages,
+          thinking,
+          maxTokens: max_tokens,
+        })
+      );
+      const choice = data.choices?.[0];
+      const reply = choice?.message?.content ?? "";
+      const reasoningContent = choice?.message?.reasoning_content;
+      const out = reasoningContent
+        ? `<thinking>\n${reasoningContent}\n</thinking>\n\n${reply}`
+        : reply;
+      ok = true;
+      logCall({
+        mcp: "nvidia-nim-security", tool: "nvidia_security_chat", model: resolvedModel,
+        startedAt, endedAt: Date.now(), ok,
+        tokensIn: data.usage?.prompt_tokens ?? null,
+        tokensOut: data.usage?.completion_tokens ?? null,
+      });
+      return { content: [{ type: "text", text: out }] };
+    } catch (err) {
+      lastErr = err;
+      throw err;
+    } finally {
+      if (!ok) {
+        logCall({
+          mcp: "nvidia-nim-security", tool: "nvidia_security_chat", model: resolvedModel,
+          startedAt, endedAt: Date.now(), ok: false, error: lastErr,
+        });
+      }
+    }
   }
 );
 

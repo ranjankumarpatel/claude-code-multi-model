@@ -37,5 +37,18 @@
         "MCP_GLOBAL_MODULES": "${MCP_GLOBAL_MODULES}"
       }
     }
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write|NotebookEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node ${CLAUDE_PLUGIN_ROOT}/hooks/opus-executor-guard.mjs"
+          }
+        ]
+      }
+    ]
   }
 }
