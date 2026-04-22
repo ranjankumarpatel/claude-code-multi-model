@@ -19,11 +19,23 @@
   - `gpt-5.3-codex` — GPT-5.3-Codex, peer to Sonnet for code generation and editing
   - `gemini-3-pro` — Gemini 3 Pro, long-context work and vision+language tasks
   - `claude` — routes back to Claude through Copilot auth (cross-vendor compare)
-- **Codex** — reviewer, verifier, and executor for code-focused work via the codex plugin:
-  - `/codex:review` or `/codex:adversarial-review` — review any diff or branch before merging; use after every non-trivial change
-  - `/codex:rescue` — delegate bug investigation, failing tests, or complex fixes to Codex as an independent executor
-  - Verification gate: run `/codex:review` before Opus synthesizes final results; if Codex flags issues, route back to Sonnet/Haiku to fix
-  - Use `codex:codex-rescue` subagent (`Agent` tool) to parallelize execution alongside Sonnet/Haiku
+- **Gemini CLI** — Google-native model picker via `mcp__gemini__gemini_chat` tool or `/gemini` command (requires `GEMINI_API_KEY` or Google OAuth — no premium-request cost):
+  - `auto` — **default**; smart routing picks best Gemini model per task complexity
+  - `gemini-3-pro-preview` — flagship, deep reasoning, long-context (>256k)
+  - `gemini-3-flash-preview` — fast Gemini 3 tier
+  - `gemini-2.5-pro` — stable production tier, multimodal
+  - `gemini-2.5-flash` — fast, cheap bulk tasks
+- **opencode CLI** — free-tier cross-vendor picker via `mcp__opencode__opencode_run` tool or `/multi-model:opencode` command. MCP server enforces a free-models allowlist to prevent billing. Install: `npm install -g opencode-ai`. Auth: `opencode providers login`. Allowed models:
+  - `opencode/big-pickle` — default free workhorse (omit model to get this)
+  - `opencode/ling-2.6-flash-free` — fast / bulk / simple
+  - `opencode/nemotron-3-super-free` — reasoning-heavy / chain-of-thought
+  - `opencode/minimax-m2.5-free` — alt-frontier second opinion
+  - Paid opencode models are rejected by the MCP. Prefer over Copilot for bulk / repeat cross-vendor calls (no cost).
+- **Codex** — reviewer, verifier, and executor for code-focused work. **Prefer direct `codex` CLI** via multi-model's own MCP server, which bypasses the openai-codex plugin's Landlock sandbox (the source of `Codex blocked (sandbox restriction, file access denied)` errors):
+  - `mcp__codex__codex_exec` — runs `codex exec --full-auto` for rescue/investigation/fix. Set `bypassSandbox: true` for `--dangerously-bypass-approvals-and-sandbox` when workspace-write still denies a legitimate action in a trusted repo.
+  - `mcp__codex__codex_review` — runs `codex exec --sandbox read-only` for diff/review; mandatory verification gate before synthesizing.
+  - Fallback to openai-codex plugin slash commands only if `codex` isn't on PATH: `/codex:review`, `/codex:adversarial-review`, `codex:codex-rescue` subagent via `Agent` tool.
+  - If Codex flags issues, route fixes back to Sonnet/Haiku and re-review.
 - Pattern: Opus plans → Sonnet/Haiku/Codex execute → Codex reviews → Opus synthesizes.
 - **Parallelize executors** — run Sonnet/Haiku/Ollama/Codex subagents concurrently whenever tasks are independent. Single message, multiple `Agent` tool calls. Examples: multi-file edits, parallel searches across modules, rendering several templates, validating multiple XMLs. Only serialize when outputs feed each other.
 - Split by task weight: Haiku for bulk/simple (grep, rename, format, read-many), Sonnet for reasoning-heavy (refactors, template logic, debugging), Ollama cloud for second-opinion or alternative-model tasks, Codex for code review / verification / rescue execution. Opus never executes — only dispatches and synthesizes.
