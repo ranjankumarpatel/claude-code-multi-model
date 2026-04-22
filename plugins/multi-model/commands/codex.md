@@ -1,6 +1,6 @@
 ---
 description: Hand off to Codex for review, rescue, or adversarial verification
-argument-hint: '[review|rescue|adversarial|cli] <task or diff>'
+argument-hint: '[review|rescue|adversarial] <task or diff>'
 ---
 
 Route to Codex. Arg: `$ARGUMENTS`
