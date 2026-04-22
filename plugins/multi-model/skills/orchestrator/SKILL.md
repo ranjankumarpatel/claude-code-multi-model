@@ -9,12 +9,13 @@ description: Opus auto-routes every task to the right model without asking. Trig
 
 ## Knowledge sources
 
-- **`MODELS.md`** (plugin root) — full catalog of all 41 models across 4 MCPs. Read when routing a non-obvious task.
+- **`MODELS.md`** (plugin root) — full catalog of all 44 models across 5 MCPs. Read when routing a non-obvious task.
 - **Per-MCP deep-dive skills** — invoke when the rubric points into a specific MCP:
   - `multi-model-ollama-models` — 15 Ollama cloud models
   - `multi-model-nvidia-nim-models` — 11 NIM frontier models
   - `multi-model-nvidia-security-models` — 9 security / audit / guardrail models
   - `multi-model-copilot-models` — 6 Copilot cross-vendor (1 premium req / call)
+  - `multi-model-gemini-cli-models` — 5 Gemini CLI models (no premium cost)
 - **`multi-model-advisor`** — switch to advisory mode when the user asks *about* models instead of asking for work.
 
 ## Roles
@@ -24,7 +25,9 @@ description: Opus auto-routes every task to the right model without asking. Trig
 - **NVIDIA NIM** (`mcp__nvidia-nim__nvidia_chat`): nemotron-ultra, nemotron-super, llama405b, mistral-large, gemma4. (deepseek-r1 EOL 2026-01-26)
 - **NVIDIA Security** (`mcp__nvidia-security__nvidia_security_chat`): audits, PII, guardrails.
 - **GitHub Copilot CLI** (`mcp__copilot__copilot_chat`): cross-vendor model picker — Claude, GPT-5.3-Codex, Gemini 3 Pro — through one GitHub auth. 1 premium request per call.
-- **Codex** — `/codex:review`, `/codex:adversarial-review`, `codex:codex-rescue` subagent.
+- **Gemini CLI** (`mcp__gemini__gemini_chat`): auto, gemini-3-pro-preview, gemini-3-flash-preview, gemini-2.5-pro, gemini-2.5-flash. Auto mode default. No premium cost — uses user's own Google account. Auth via `GEMINI_API_KEY` or Google OAuth.
+- **opencode CLI** (`mcp__opencode__opencode_run`): free-tier cross-vendor picker (https://opencode.ai). Allowlist enforced by MCP — only: big-pickle (default), ling-2.6-flash-free, nemotron-3-super-free, minimax-m2.5-free. Paid models rejected. Zero cost — prefer over Copilot for bulk / repeat cross-vendor comparisons. Requires `opencode providers login`.
+- **Codex** — **Prefer `mcp__codex__codex_exec` / `mcp__codex__codex_review`** (direct `codex` CLI, bypasses the openai-codex plugin's Landlock sandbox). Fall back to `/codex:review`, `/codex:adversarial-review`, `codex:codex-rescue` subagent only when the CLI path is unavailable or the user explicitly asks for plugin slash commands.
 
 ## Auto-routing rubric (apply silently)
 
@@ -40,14 +43,16 @@ description: Opus auto-routes every task to the right model without asking. Trig
 | Large general-purpose | `llama405b` |
 | Security audit, CVE, OWASP, SAST, PII, prompt-injection, compliance | NVIDIA Security |
 | Cross-vendor model pick / GPT-5.3-Codex code / Gemini 3 Pro long-context | Copilot CLI (`copilot_chat`). **Skip when**: trivial task Sonnet/Haiku can handle; user not opted into premium-request spend; task is read-only and free-tier executors suffice. Each call costs 1 premium request. |
-| Stuck / failing tests / adversarial review / pre-merge verify | Codex |
+| Long-context / multimodal / Google-stack second opinion | `gemini` (auto) — `mcp__gemini__gemini_chat`. No premium cost. Requires `GEMINI_API_KEY` or Google OAuth. |
+| Zero-cost cross-vendor pick / bulk comparison / alt-frontier second opinion | opencode CLI (`mcp__opencode__opencode_run`) — free tier only (big-pickle / ling-2.6-flash-free / nemotron-3-super-free / minimax-m2.5-free). Prefer over Copilot for repeat calls. |
+| Stuck / failing tests / adversarial review / pre-merge verify | Codex — `mcp__codex__codex_exec` (rescue/fix, `--full-auto`) or `mcp__codex__codex_review` (read-only diff review). Use `bypassSandbox: true` only if workspace-write still denies a legitimate action. |
 | Independent subtasks (≥2) | Parallel `Agent` calls in ONE message |
 
 ## Decision flow
 1. Parse request → identify subtasks.
 2. Tag each subtask with a route from the rubric. No user confirmation.
 3. Dispatch parallel where independent.
-4. Run `/codex:review` on the diff before declaring done.
+4. Run `mcp__codex__codex_review` (direct CLI) on the diff before declaring done. Fall back to `/codex:review` only if the CLI isn't on PATH.
 5. Opus synthesizes → 1–3 sentence report + file links.
 
 ## Report format

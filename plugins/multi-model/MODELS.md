@@ -1,4 +1,5 @@
 <!-- GENERATED FROM models.yaml — do not edit directly. Run: node scripts/gen-docs.mjs -->
+<!-- Gemini CLI section manually added. Run gen-docs.mjs to regenerate fully. -->
 
 # Models
 
@@ -75,9 +76,23 @@ Source: [`plugins/multi-model/scripts/mcp-copilot.mjs`](plugins/multi-model/scri
 | `gemini-3-pro` | Google | Multimodal, long-ctx |
 | `gpt-5` | OpenAI | General-purpose frontier |
 
+## `mcp__gemini` — Google Gemini CLI models
+
+Source: [`plugins/multi-model/scripts/mcp-gemini.mjs`](plugins/multi-model/scripts/mcp-gemini.mjs)
+
+**Auth**: `GEMINI_API_KEY` env var or Google OAuth (run `gemini` interactively once to cache). No premium-request cost — uses user's own Google account quota.
+
+| Model | Vendor | Why use |
+|---|---|---|
+| `auto` *(default)* | Google | Smart routing — CLI picks best Gemini model per task complexity |
+| `gemini-3-pro-preview` | Google | Flagship — deep reasoning, long-context (>256k) |
+| `gemini-3-flash-preview` | Google | Fast Gemini 3 tier |
+| `gemini-2.5-pro` | Google | Stable production, multimodal, long-context |
+| `gemini-2.5-flash` | Google | Fast, cheap bulk tasks |
+
 ---
 
-**Total: 39 models across 4 MCPs** (15 Ollama + 10 NIM + 8 Security + 6 Copilot).
+**Total: 44 models across 5 MCPs** (15 Ollama + 10 NIM + 8 Security + 6 Copilot + 5 Gemini).
 
 ## Recommended picks
 

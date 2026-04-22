@@ -6,7 +6,7 @@ This file loads whenever the `multi-model` plugin is active. It establishes how 
 
 **Opus plans + advises + synthesizes. Opus never executes.**
 
-Concrete work (file reads, edits, shell, searches, MCP tool invocation against model endpoints, DB queries, test runs, template rendering) is dispatched to executors: Sonnet, Haiku, Ollama cloud models, NVIDIA NIM, NVIDIA Security, GitHub Copilot CLI, and Codex.
+Concrete work (file reads, edits, shell, searches, MCP tool invocation against model endpoints, DB queries, test runs, template rendering) is dispatched to executors: Sonnet, Haiku, Ollama cloud models, NVIDIA NIM, NVIDIA Security, GitHub Copilot CLI, Google Gemini CLI, and Codex.
 
 If Opus catches itself about to call `Edit`, `Write`, `Bash` (non-trivial), or an MCP chat tool directly — **stop and dispatch instead**. The only Opus-native actions are: reading files for context, planning, and writing the final synthesis reply.
 
@@ -34,13 +34,14 @@ Load and follow the **`multi-model-advisor`** skill. It answers from `MODELS.md`
 
 | File | Purpose | When to read |
 |---|---|---|
-| `MODELS.md` | Full catalog — 41 models across 4 MCPs, routing cheat-sheet | Before routing a non-trivial task or answering any advisor question |
+| `MODELS.md` | Full catalog — 44 models across 5 MCPs, routing cheat-sheet | Before routing a non-trivial task or answering any advisor question |
 | `skills/orchestrator/SKILL.md` | Auto-routing rubric + dispatch flow | Action requests |
 | `skills/advisor/SKILL.md` | Advisory response format + decision framework | Questions about models |
 | `skills/ollama-models/SKILL.md` | Deep dive on 15 Ollama cloud models | Ollama routing / second-opinion / agentic coding |
 | `skills/nvidia-nim-models/SKILL.md` | Deep dive on 11 NIM frontier models | Frontier coding / reasoning / multimodal NIM picks |
 | `skills/nvidia-security-models/SKILL.md` | Deep dive on 9 security models (audit, PII, guardrails) | Any security / safety / compliance task |
 | `skills/copilot-models/SKILL.md` | Deep dive on 6 Copilot cross-vendor models (premium-request cost) | Cross-vendor picks, GPT-5.3-Codex, Gemini 3 Pro |
+| `skills/gemini-cli-models/SKILL.md` | Deep dive on 5 Gemini CLI models (no premium cost, Google account) | Google-native long-context, multimodal, or Gemini-specific tasks |
 
 Skills auto-trigger from their descriptions; Opus can also invoke them explicitly via the `Skill` tool.
 
@@ -51,7 +52,9 @@ Skills auto-trigger from their descriptions; Opus can also invoke them explicitl
 - **NVIDIA NIM** — 11 frontier models via `mcp__nvidia-nim__nvidia_chat`. Best coding (qwen3-coder), best reasoning (nemotron-ultra), vision (gemma4).
 - **NVIDIA Security** — 9 role-matched models via `mcp__nvidia-security__nvidia_security_chat`. Audit, PII, guardrails.
 - **GitHub Copilot CLI** — 6 cross-vendor models via `mcp__copilot__copilot_chat` (1 premium request per call). Claude/GPT-5.3-Codex/Gemini 3 Pro through unified GitHub auth.
-- **Codex** — `/codex:review`, `/codex:adversarial-review`, `codex:codex-rescue` subagent. Verifier + rescue executor.
+- **Google Gemini CLI** — 5 models via `mcp__gemini__gemini_chat` (no premium cost — user's own Google account): `auto` (default), `gemini-3-pro-preview`, `gemini-3-flash-preview`, `gemini-2.5-pro`, `gemini-2.5-flash`. Auth: `GEMINI_API_KEY` or Google OAuth.
+- **opencode CLI** — 4 free-tier models via `mcp__opencode__opencode_run` (MCP enforces free-only allowlist, paid models rejected). Allowed: big-pickle (default), ling-2.6-flash-free, nemotron-3-super-free, minimax-m2.5-free. Auth: `opencode providers login`. Preferred over Copilot for bulk / repeat cross-vendor calls (zero cost).
+- **Codex** — **Prefer direct CLI**: `mcp__codex__codex_exec` (rescue, `codex exec --full-auto`) and `mcp__codex__codex_review` (read-only diff review). Bypasses the openai-codex plugin's Landlock sandbox. Fallback: `/codex:review`, `/codex:adversarial-review`, `codex:codex-rescue` subagent.
 
 ## Non-negotiable behaviors
 

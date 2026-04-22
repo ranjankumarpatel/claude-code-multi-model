@@ -26,7 +26,9 @@ Or reference this repo directly as a marketplace source.
 | `NVIDIA_API_KEY` | Required for NVIDIA NIM and NVIDIA Security commands |
 | `GH_TOKEN` or `GITHUB_TOKEN` | Required for GitHub Copilot CLI; PAT with `Copilot Requests` scope |
 | `npm install -g @github/copilot` | Required for Copilot CLI integration |
-| Codex plugin installed | Required for `/multi-model:codex` commands |
+| `npm install -g @openai/codex` | Required for direct `codex` CLI (preferred Codex path). Bypasses openai-codex plugin's Landlock sandbox to avoid `Codex blocked (sandbox restriction, file access denied)`. |
+| `codex login` (ChatGPT subscription) | **Auth source.** Credentials cached in `~/.codex/auth.json`. No `OPENAI_API_KEY` needed — plugin deliberately does NOT forward `OPENAI_API_KEY` so ChatGPT subscription auth is preserved. |
+| openai-codex plugin installed | Optional fallback for `/codex:*` slash commands when the direct CLI is unavailable. |
 | `npm install` inside the plugin | Installs `@modelcontextprotocol/sdk`, `zod`, `js-yaml` into local `node_modules`. No global install required. |
 
 ## Commands
@@ -38,7 +40,7 @@ Or reference this repo directly as a marketplace source.
 | `/multi-model:nvidia` | Delegate a prompt to a NVIDIA NIM frontier model |
 | `/multi-model:nvidia-security` | Security audit / PII / guardrail task via NVIDIA Security NIM |
 | `/multi-model:copilot` | Delegate a prompt to GitHub Copilot CLI |
-| `/multi-model:codex` | Hand off to Codex for review, rescue, or adversarial verification |
+| `/multi-model:codex` | Hand off to Codex. Prefers direct `codex` CLI via `mcp__codex__codex_exec` / `mcp__codex__codex_review`; falls back to openai-codex plugin slash commands. |
 | `/multi-model:models` | List all available delegation models across providers |
 | `/multi-model:test-all-models` | Fire canary ping against every executor and MCP endpoint, render status table |
 
@@ -54,7 +56,7 @@ Or reference this repo directly as a marketplace source.
 
 ## MCP Servers
 
-Four MCP servers are bundled and auto-loaded via `plugin.json`. No project-level `.mcp.json` needed.
+Five MCP servers are bundled and auto-loaded via `plugin.json`. No project-level `.mcp.json` needed.
 
 | Server | Script | Tools provided |
 |---|---|---|
@@ -62,6 +64,7 @@ Four MCP servers are bundled and auto-loaded via `plugin.json`. No project-level
 | `nvidia-nim` | `scripts/mcp-nvidia.mjs` | `nvidia_chat`, `nvidia_list_models` — NVIDIA NIM general models |
 | `nvidia-security` | `scripts/mcp-security-nvidia.mjs` | `nvidia_security_chat`, `nvidia_security_list_models` — NVIDIA Security NIM models |
 | `copilot` | `scripts/mcp-copilot.mjs` | `copilot_chat`, `copilot_list_models` — GitHub Copilot CLI models |
+| `codex` | `scripts/mcp-codex.mjs` | `codex_exec`, `codex_review` — direct `codex exec` CLI calls (`--full-auto` default, bypasses openai-codex plugin sandbox) |
 
 ## Configuration
 
