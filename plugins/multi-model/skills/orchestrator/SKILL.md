@@ -1,22 +1,24 @@
 ---
 name: multi-model-orchestrator
-description: Opus auto-routes every task to the right model without asking. Triggers on ANY non-trivial request — planning, coding, refactor, review, research, audit, debug, multi-file work. Opus plans + synthesizes only; Sonnet/Haiku/Ollama/NVIDIA/Codex execute in parallel; Codex verifies.
+description: Opus auto-routes every task to the right model without asking. Triggers on ANY non-trivial request — planning, coding, refactor, review, research, audit, debug, multi-file work. Opus plans + synthesizes only; Sonnet/Haiku/Ollama/NVIDIA/Copilot/Gemini/opencode/Codex execute in parallel; Codex verifies. Opus acts as advisor when user asks about models.
 ---
 
 # Multi-Model Auto-Router
 
 **Rule**: Opus decides the model per task from the request signal. Never ask the user which model to use. Never default to "ask first". Route silently, report briefly.
 
+**Opus as advisor**: When the user asks *about* models (comparisons, recommendations, tradeoffs, "which model for X?"), switch to advisory mode — load `multi-model-advisor` skill and answer from `MODELS.md`. Do not dispatch work in advisor mode.
+
 ## Knowledge sources
 
-- **`MODELS.md`** (plugin root) — full catalog of all 44 models across 5 MCPs. Read when routing a non-obvious task.
-- **Per-MCP deep-dive skills** — invoke when the rubric points into a specific MCP:
+- **`MODELS.md`** (plugin root) — full catalog across 7 providers (Ollama, NVIDIA NIM, NVIDIA Security, Copilot, Gemini, opencode, Codex). Read when routing a non-obvious task.
+- **Per-MCP deep-dive skills** — invoke when the rubric points into a specific provider:
   - `multi-model-ollama-models` — 15 Ollama cloud models
-  - `multi-model-nvidia-nim-models` — 11 NIM frontier models
-  - `multi-model-nvidia-security-models` — 9 security / audit / guardrail models
-  - `multi-model-copilot-models` — 6 Copilot cross-vendor (1 premium req / call)
+  - `multi-model-nvidia-nim-models` — NVIDIA NIM frontier models (qwen3-coder, nemotron-ultra, devstral, etc.)
+  - `multi-model-nvidia-security-models` — security / audit / guardrail models
+  - `multi-model-copilot-models` — Copilot cross-vendor (1 premium req / call)
   - `multi-model-gemini-cli-models` — 5 Gemini CLI models (no premium cost)
-- **`multi-model-advisor`** — switch to advisory mode when the user asks *about* models instead of asking for work.
+- **`multi-model-advisor`** — Opus advisory mode for model questions.
 
 ## Roles
 - **Opus** — plan, route, synthesize. Never edits files / runs shell directly.

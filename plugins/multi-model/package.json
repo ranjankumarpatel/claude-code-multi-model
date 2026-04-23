@@ -1,9 +1,9 @@
 {
   "name": "claude-code-multi-model",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "private": true,
   "type": "module",
-  "description": "Multi-model orchestration plugin for Claude Code — Ollama cloud, NVIDIA NIM, NVIDIA Security, GitHub Copilot CLI, Codex.",
+  "description": "Multi-model orchestration plugin for Claude Code — Ollama cloud, NVIDIA NIM, NVIDIA Security, GitHub Copilot CLI, Google Gemini CLI, opencode CLI, and Codex.",
   "scripts": {
     "gen-docs": "node scripts/gen-docs.mjs",
     "check-copilot-drift": "node scripts/check-copilot-drift.mjs",
