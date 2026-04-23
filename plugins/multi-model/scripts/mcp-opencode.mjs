@@ -30,6 +30,9 @@ try {
   process.stderr.write(`[mcp-opencode] WARNING: ${_opencodePathError}\n`);
 }
 
+// On Windows, .cmd/.bat wrappers can't be spawned with shell:false (EINVAL).
+const _needsShell = process.platform === "win32" && _opencodePath && /\.(cmd|bat)$/i.test(_opencodePath);
+
 const CHILD_ENV = (() => {
   const keys = [
     "PATH", "APPDATA", "LOCALAPPDATA", "USERPROFILE", "HOME",
@@ -76,7 +79,8 @@ function runOpencode({
     const child = spawn(_opencodePath, args, {
       cwd: cwd ?? process.cwd(),
       env: CHILD_ENV,
-      shell: false,
+      shell: _needsShell,
+      stdio: ["ignore", "pipe", "pipe"],
     });
 
     let stdout = "";
@@ -118,6 +122,7 @@ function listModels() {
       encoding: "utf8",
       stdio: ["ignore", "pipe", "pipe"],
       timeout: 30_000,
+      shell: _needsShell,
     });
     return { ok: true, text: raw.trim() };
   } catch (err) {
