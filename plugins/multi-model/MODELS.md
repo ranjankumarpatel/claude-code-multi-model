@@ -90,9 +90,22 @@ Source: [`plugins/multi-model/scripts/mcp-gemini.mjs`](plugins/multi-model/scrip
 | `gemini-2.5-pro` | Google | Stable production, multimodal, long-context |
 | `gemini-2.5-flash` | Google | Fast, cheap bulk tasks |
 
----
+## `mcp__opencode` — opencode CLI models (free tier)
 
-**Total: 44 models across 5 MCPs** (15 Ollama + 10 NIM + 8 Security + 6 Copilot + 5 Gemini).
+Source: [`plugins/multi-model/scripts/mcp-opencode.mjs`](plugins/multi-model/scripts/mcp-opencode.mjs)
+
+**Auth**: `opencode providers login` (or `OPENCODE_SERVER_PASSWORD` env var). No cost — MCP enforces free-tier allowlist; paid models are rejected.
+
+| Model | Why use |
+|---|---|
+| `opencode/big-pickle` *(default)* | General-purpose free workhorse |
+| `opencode/ling-2.6-flash-free` | Fast, cheap bulk tasks |
+| `opencode/nemotron-3-super-free` | Reasoning-heavy, chain-of-thought |
+| `opencode/minimax-m2.5-free` | Alt-frontier second opinion |
+
+---\
+
+**Total: 48 models across 6 MCPs** (15 Ollama + 10 NIM + 8 Security + 6 Copilot + 5 Gemini + 4 opencode).
 
 ## Recommended picks
 
@@ -108,4 +121,4 @@ Curated top 1–2 models per lane. Source: `recommended:` block in `models.yaml`
 | `security-audit` | `nvidia_security` → `nemotron-ultra` · `nvidia_security` → `qwen3-coder` |
 | `pii` | `nvidia_security` → `gliner-pii` |
 | `safety-guard` | `nvidia_security` → `llama-guard` · `nvidia_security` → `nemotron-safety` |
-| `cross-vendor` | `copilot` → `gpt-5.3-codex` · `copilot` → `gemini-3-pro` |
+| `cross-vendor` | `copilot` → `gpt-5.3-codex` · `copilot` → `gemini-3-pro` · `opencode` → `opencode/big-pickle` |
