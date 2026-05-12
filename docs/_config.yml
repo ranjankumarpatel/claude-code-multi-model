@@ -1,0 +1,17 @@
+title: claude-code-multi-model
+description: >
+  Portable Claude Code plugin for automatic multi-model orchestration
+  across 7 providers with 44+ models. Zero manual model selection required.
+url: "https://ranjankumarpatel.github.io"
+baseurl: "/claude-code-multi-model"
+
+# Pure HTML/CSS landing page — no Jekyll theme processing needed
+theme: null
+
+# Exclude source files from Jekyll build
+exclude:
+  - "*.md"
+  - "*.json"
+  - "*.csv"
+  - plugins/
+  - skills-lock.json
