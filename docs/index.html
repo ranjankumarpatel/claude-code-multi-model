@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Portable Claude Code plugin for automatic multi-model orchestration across 7 providers with 44+ models. Zero manual model selection required." />
+  <meta name="description" content="Portable Claude Code plugin for automatic multi-model orchestration across Ollama, NVIDIA NIM, Gemini, Copilot, opencode, and Codex. Zero manual model selection required." />
   <title>claude-code-multi-model — Auto-Routing AI Orchestration</title>
   <style>
     /* ── Design tokens ───────────────────────────────────────────────── */
@@ -412,14 +412,14 @@
   <div class="hero-content container">
     <div class="hero-badge">
       <span class="dot"></span>
-      v1.4.0 &nbsp;&middot;&nbsp; Apache 2.0
+      Apache 2.0
     </div>
     <h1 class="hero-title">
       <span class="grad-text">Multi-model orchestration.</span><br>
       Zero manual routing.
     </h1>
     <p class="hero-sub">
-      Drop-in Claude Code plugin that auto-dispatches tasks across 44+ models from 7 providers.
+      Drop-in Claude Code plugin that auto-dispatches tasks across 48+ models from 7 providers.
       Opus plans &amp; synthesizes. Sonnet, Haiku, Ollama, NVIDIA, Copilot, Gemini, and Codex execute in parallel &mdash; silently.
     </p>
     <div class="hero-ctas">
@@ -434,7 +434,7 @@
     </div>
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-num">44+</div>
+        <div class="stat-num">48+</div>
         <div class="stat-label">Models</div>
       </div>
       <div class="stat">
@@ -538,7 +538,7 @@
   <div class="container">
     <div class="reveal">
       <span class="section-label">Providers</span>
-      <h2 class="section-title">44+ models across 7 providers</h2>
+      <h2 class="section-title">48+ models across 7 providers</h2>
       <p class="section-sub">Every provider is optional. The plugin works with whatever keys you have set.</p>
     </div>
     <div class="providers-grid">
@@ -550,9 +550,9 @@
           <span class="provider-count">3 models</span>
         </div>
         <div class="provider-models">
-          <span class="model-tag">Claude Opus 4</span>
-          <span class="model-tag">Claude Sonnet 4</span>
-          <span class="model-tag">Claude Haiku 4</span>
+          <span class="model-tag">claude-opus-4-7</span>
+          <span class="model-tag">claude-sonnet-4-6</span>
+          <span class="model-tag">claude-haiku-4-5</span>
         </div>
       </div>
 
@@ -613,7 +613,7 @@
         <div class="provider-header">
           <div class="provider-logo" style="background:rgba(124,58,237,.15);">&#x1F419;</div>
           <span class="provider-name">GitHub Copilot</span>
-          <span class="provider-count">5 models</span>
+          <span class="provider-count">6 models</span>
         </div>
         <div class="provider-models">
           <span class="model-tag">gpt-5.3-codex</span>
@@ -621,6 +621,7 @@
           <span class="model-tag">gpt-5</span>
           <span class="model-tag">claude-sonnet-4.6</span>
           <span class="model-tag">claude-opus-4.6</span>
+          <span class="model-tag">claude-haiku-4.5</span>
         </div>
       </div>
 
@@ -646,10 +647,10 @@
           <span class="provider-count">4 models</span>
         </div>
         <div class="provider-models">
-          <span class="model-tag">big-pickle (default)</span>
-          <span class="model-tag">ling-2.6-flash-free</span>
-          <span class="model-tag">nemotron-3-super-free</span>
-          <span class="model-tag">minimax-m2.5-free</span>
+          <span class="model-tag">opencode/big-pickle</span>
+          <span class="model-tag">opencode/ling-2.6-flash-free</span>
+          <span class="model-tag">opencode/nemotron-3-super-free</span>
+          <span class="model-tag">opencode/minimax-m2.5-free</span>
         </div>
       </div>
 
@@ -692,7 +693,7 @@
           </tr>
           <tr>
             <td>Coding second opinion / alt-frontier</td>
-            <td><span class="route-badge badge-purple">gemma4:31b-cloud</span> <span class="route-badge badge-blue">gpt-5.3-codex</span></td>
+            <td><span class="route-badge badge-purple">gemma4:31b-cloud</span> <span class="route-badge badge-green">nemotron-ultra</span></td>
           </tr>
           <tr>
             <td>Long-context / agentic / vision</td>
@@ -762,7 +763,7 @@
         <span class="command-desc">opencode CLI with free-tier models only. MCP server enforces the free-models allowlist to prevent billing.</span>
       </div>
       <div class="command-card reveal">
-        <span class="command-name">/multi-model:codex [review|rescue] &lt;arg&gt;</span>
+        <span class="command-name">/multi-model:codex [review|rescue|adversarial] &lt;arg&gt;</span>
         <span class="command-desc">Codex handoff &mdash; review diffs, rescue stuck tasks, or run adversarial reviews before merge.</span>
       </div>
       <div class="command-card reveal">
@@ -898,14 +899,20 @@
       navigator.clipboard.writeText(text).then(function() {
         btn.textContent = 'Copied!'; btn.classList.add('copied');
         setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      }).catch(function() {
+        fallbackCopy(btn, text);
       });
     } else {
-      var ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      document.execCommand('copy'); document.body.removeChild(ta);
-      btn.textContent = 'Copied!'; btn.classList.add('copied');
-      setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      fallbackCopy(btn, text);
     }
+  }
+  function fallbackCopy(btn, text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); btn.textContent = 'Copied!'; btn.classList.add('copied'); }
+    catch (e) { btn.textContent = 'Failed'; }
+    document.body.removeChild(ta);
+    setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
   }
 
   /* ── Scroll reveal ─────────────────────────────────────────────── */
