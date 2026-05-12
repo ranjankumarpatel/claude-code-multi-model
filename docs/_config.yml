@@ -8,10 +8,21 @@ baseurl: "/claude-code-multi-model"
 # Pure HTML/CSS landing page — no Jekyll theme processing needed
 theme: null
 
-# Exclude source files from Jekyll build
+# Tell GitHub Pages to serve the docs/ folder as-is
+# index.html is a self-contained single-file page (no external deps)
+
+# Exclude project source files from Jekyll build
 exclude:
   - "*.md"
   - "*.json"
   - "*.csv"
   - plugins/
+  - skills/
   - skills-lock.json
+  - AGENTS.md
+  - CLAUDE.md
+  - MCP-SETUP.md
+  - MODELS.md
+  - models-raw.json
+  - models-tiles.json
+  - nvidia-preview-models.csv
