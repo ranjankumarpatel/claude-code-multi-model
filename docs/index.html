@@ -539,7 +539,7 @@
     <div class="reveal">
       <span class="section-label">Providers</span>
       <h2 class="section-title">Execution lanes: Claude-native + MCP catalogs</h2>
-      <p class="section-sub">Model counts come from 6 optional MCP catalogs. Claude-native executors and Codex verification are built into the orchestration flow.</p>
+      <p class="section-sub">The 48+ models span 6 optional MCP catalogs. Claude-native executors and Codex verification are built into the orchestration flow.</p>
     </div>
     <div class="providers-grid">
 
@@ -910,7 +910,7 @@
     var ta = document.createElement('textarea');
     ta.value = text; document.body.appendChild(ta); ta.select();
     try { document.execCommand('copy'); btn.textContent = 'Copied!'; btn.classList.add('copied'); }
-    catch (e) { btn.textContent = 'Failed'; }
+    catch (e) { console.error('Copy failed:', e); btn.textContent = 'Failed'; }
     document.body.removeChild(ta);
     setTimeout(function() { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
   }
